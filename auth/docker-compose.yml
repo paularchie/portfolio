@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo:/var/lib/mongo
+    hostname: mongodb-server
+  # migration:
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile.migration
+  #   depends_on: 
+  #     - mongodb
+  #   restart: always
+volumes:
+  mongo: ~

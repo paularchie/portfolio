@@ -1,0 +1,39 @@
+[
+  {
+    "name": "developement",
+    "type": "mongodb",
+    "host": "127.0.0.1",
+    "port": 27017,
+    "migrationsRun": true,
+    "database": "auth",
+    "synchronize": true,
+    "logging": false,
+    "entities": ["src/entity/**/*.{ts, js}"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"],
+    "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+    }
+  },
+  {
+    "name": "test",
+    "type": "mongodb",
+    "host": "127.0.0.1",
+    "port": 27017,
+    "migrationsRun": true,
+    "database": "auth",
+    "synchronize": true,
+    "dropSchema": true,
+    "logging": false,
+    "entities": ["src/entity/**/*.{ts, js}"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"],
+    "cli": {
+      "entitiesDir": "src/entity",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+    }
+  }
+]
