@@ -22,7 +22,19 @@ module.exports = {
           'style-loader',
           'css-loader',
           {
-            loader: 'sass-loader'
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env',
+                    {
+                      // Options
+                    }
+                  ]
+                ]
+              }
+            }
           }
         ]
       }

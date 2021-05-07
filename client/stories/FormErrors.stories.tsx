@@ -1,5 +1,5 @@
 import React from 'react';
-import FormErrors, { FormErrorsProps } from '../components/FormErrors/FormErrors';
+import FormErrors, { FormErrorsProps } from '../src/common/components/FormErrors/FormErrors';
 
 export default {
   component: FormErrors,

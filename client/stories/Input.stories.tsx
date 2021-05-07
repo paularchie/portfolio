@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, InputProps, InputTypes } from '../components/Input/Input';
+import { Input, InputProps, InputTypes } from '../src/common/components/Input/Input';
 
 export default {
   component: Input,

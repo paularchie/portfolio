@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress-react-unit-test';
-import Button, { ButtonProps } from '../../components/Button/Button';
+import Button, { ButtonProps } from '../../src/common/components/Button/Button';
 
 const dummyText = 'some text';
 const buttonProps: ButtonProps = {

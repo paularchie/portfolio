@@ -5,16 +5,21 @@ export type FormErrorsProps = {
 };
 
 const FormErrors = ({ errors }: FormErrorsProps): JSX.Element => {
+
+  const getErrorElement = (errorText: string): JSX.Element => {
+    return <p className="m-0 has-error">{errorText}</p>;
+  }
+
   return (
     <>
       {errors instanceof Array ? (
         <>
-          {errors.map((error: string) => (
-            <p className="m-0">{error}</p>
-          ))}
+          {errors.map((error: string) => getErrorElement(error))}
         </>
       ) : (
-        <p>{errors}</p>
+        <>
+          {getErrorElement(errors)}
+        </>
       )}
     </>
   );
