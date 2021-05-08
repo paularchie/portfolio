@@ -35,3 +35,9 @@ Password.args = {
   ...commonArgs,
   type: InputTypes.Password
 };
+
+export const WithErrors = Template.bind({});
+WithErrors.args = {
+  ...commonArgs,
+  errors: ['Error message 1', 'Error message 2', 'Error message 3']
+};

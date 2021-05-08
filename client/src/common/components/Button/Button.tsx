@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button as AntDButton } from 'antd';
+import clsx from 'clsx';
 
 export type ButtonProps = {
   buttonText: string;
@@ -24,7 +25,11 @@ export const Button = ({
   className
 }: ButtonProps): JSX.Element => {
   return (
-    <AntDButton onClick={onClick} type={buttonType} className={className}>
+    <AntDButton
+      onClick={onClick}
+      type={buttonType}
+      className={clsx([className, `btn-${buttonType}`])}
+    >
       {buttonText}
     </AntDButton>
   );

@@ -1,3 +1,20 @@
-.has-error {
+.error-border {
+  @apply border-red-700;
+}
+
+.error-text {
   @apply text-red-700;
+}
+
+.error-input {
+  @apply error-border;
+
+  &:focus {
+    @apply error-border;
+    box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.2);
+  }
+
+  &:hover {
+    @apply error-border;
+  }
 }

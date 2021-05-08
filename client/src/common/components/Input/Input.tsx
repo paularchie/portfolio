@@ -1,7 +1,8 @@
 import React from 'react';
 import { Input as AntDInput } from 'antd';
+import FormErrors from '../FormErrors/FormErrors';
+import clsx from 'clsx';
 
-// TODO: add more types when required
 export enum InputTypes {
   Text = 'text',
   Password = 'password',
@@ -12,19 +13,23 @@ export type InputProps = {
   id: string;
   name: string;
   label?: string;
+  className?: string;
   placeholder?: string;
   type?: InputTypes;
   onChange?: (value: string, name: string) => void;
+  errors?: string | string[];
 };
 
 export const Input = (props: InputProps): JSX.Element => {
   const {
     id,
+    name,
     label,
+    className,
     placeholder,
     type = InputTypes.Text,
-    name,
-    onChange
+    onChange,
+    errors
   } = props;
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
@@ -37,10 +42,13 @@ export const Input = (props: InputProps): JSX.Element => {
       <AntDInput
         id={id}
         name={name}
+        className={clsx([className, { 'error-input': errors }])}
         placeholder={placeholder}
         type={type}
         onChange={handleChange}
+        data-cy="input-field"
       />
+      {errors && <FormErrors errors={errors} />}
     </>
   );
 };

@@ -1,10 +1,10 @@
-const preprocessor = require('cypress-react-unit-test/plugins/next');
+const { startDevServer } = require('@cypress/webpack-dev-server')
+const webpackConfig = require('./webpack.config.js')
 
-/**
- * @type {Cypress.PluginConfig}
- */
 module.exports = (on, config) => {
-  preprocessor(on, config);
+  on('dev-server:start', (options) => {
+    return startDevServer({ options, webpackConfig })
+  })
 
-  return config;
-};
+  return config
+}

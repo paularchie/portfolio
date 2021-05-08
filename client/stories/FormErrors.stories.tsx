@@ -1,5 +1,7 @@
 import React from 'react';
-import FormErrors, { FormErrorsProps } from '../src/common/components/FormErrors/FormErrors';
+import FormErrors, {
+  FormErrorsProps
+} from '../src/common/components/FormErrors/FormErrors';
 
 export default {
   component: FormErrors,
@@ -10,10 +12,10 @@ const Template = (args: FormErrorsProps) => <FormErrors {...args} />;
 
 export const SingleError = Template.bind({});
 SingleError.args = {
-  errors: 'Dummy error message'
+  errors: 'Error message'
 };
 
 export const ErrorsArray = Template.bind({});
 ErrorsArray.args = {
-  errors: ['Dummy error message 1', 'Dummy error message 2', 'Dummy error message 3']
+  errors: ['Error message 1', 'Error message 2', 'Error message 3']
 };

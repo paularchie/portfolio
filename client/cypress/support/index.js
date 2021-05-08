@@ -1,3 +1,3 @@
-import 'cypress-react-unit-test/support';
-import '@cypress/code-coverage/support';
 import './commands';
+import '../../styles/index.css';
+import '../../styles/custom-styles.css';
