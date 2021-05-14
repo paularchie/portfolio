@@ -1,27 +1,27 @@
 /// <reference types="cypress" />
-import React from 'react';
-import { mount } from '@cypress/react';
-import { Input, InputTypes } from './Input';
+import React from "react";
+import { mount } from "@cypress/react";
+import { Input, InputTypes } from "./Input";
 
 const commonProps = {
-  id: 'field-id',
-  name: 'field-name'
+  id: "field-id",
+  name: "field-name"
 };
 
-describe('Input component', () => {
-  it('renders an input field with id and name attribute', () => {
+describe("Input component", () => {
+  it("renders an input field with id and name attribute", () => {
     mount(<Input {...commonProps} />);
 
     const input = getInput();
 
-    input.should('have.attr', 'id', commonProps.id);
-    input.should('have.attr', 'name', commonProps.name);
+    input.should("have.attr", "id", commonProps.id);
+    input.should("have.attr", "name", commonProps.name);
   });
 
-  it('renders the correct input type', () => {
+  it("renders the correct input type", () => {
     mount(<Input {...commonProps} />);
 
-    getInput().should('have.attr', 'type', InputTypes.Text);
+    getInput().should("have.attr", "type", InputTypes.Text);
 
     const props = {
       ...commonProps,
@@ -29,63 +29,63 @@ describe('Input component', () => {
     };
     mount(<Input {...props} />);
 
-    getInput().should('have.attr', 'type', InputTypes.Password);
+    getInput().should("have.attr", "type", InputTypes.Password);
   });
 
-  it('renders input with a placeholder', () => {
+  it("renders input with a placeholder", () => {
     const props = {
       ...commonProps,
-      placeholder: 'Placeholder text'
+      placeholder: "Placeholder text"
     };
     mount(<Input {...props} />);
 
-    getInput().should('have.attr', 'placeholder', props.placeholder);
+    getInput().should("have.attr", "placeholder", props.placeholder);
   });
 
-  it('renders input with label', () => {
+  it("renders input with label", () => {
     const props = {
       ...commonProps,
-      label: 'Label text'
+      label: "Label text"
     };
     mount(<Input {...props} />);
 
-    const label = cy.get('label');
+    const label = cy.get("label");
     label.contains(props.label);
-    label.should('have.attr', 'for', props.id);
+    label.should("have.attr", "for", props.id);
   });
 
-  it('should have a class name passed through props', () => {
+  it("should have a class name passed through props", () => {
     const props = {
       ...commonProps,
-      className: 'input-field'
+      className: "input-field"
     };
     mount(<Input {...props} />);
 
-    getInput().should('have.class', props.className);
+    getInput().should("have.class", props.className);
   });
 
-  it('should display error message', () => {
+  it("should display error message", () => {
     const props = {
       ...commonProps,
-      errors: 'Error text'
+      errors: "Error text"
     };
     mount(<Input {...props} />);
 
     cy.get('[data-cy="error-message"]').contains(props.errors);
-    getInput().should('have.class', 'error-input');
+    getInput().should("have.class", "error-input");
   });
 
-  it('triggers onChange callback', () => {
+  it("triggers onChange callback", () => {
     const props = {
       ...commonProps,
-      onChange: cy.stub().as('handleChange')
+      onChange: cy.stub().as("handleChange")
     };
     mount(<Input {...props} />);
 
-    const value = 'abc';
+    const value = "abc";
     getInput().type(value);
 
-    cy.get('@handleChange').should((stub) => {
+    cy.get("@handleChange").should((stub) => {
       expect(stub).to.have.been.calledWith(value, props.name);
     });
   });

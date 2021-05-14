@@ -1,16 +1,16 @@
-import React from 'react';
-import { Input, InputProps, InputTypes } from '../src/common/components/Input/Input';
+import React from "react";
+import { Input, InputProps, InputTypes } from "../src/common/components/Input/Input";
 
 export default {
   component: Input,
-  title: 'Input'
+  title: "Input"
 };
 
 const Template = (args: InputProps) => <Input {...args} />;
 
 const commonArgs = {
-  id: 'id',
-  name: 'field name'
+  id: "id",
+  name: "field name"
 };
 
 export const Default = Template.bind({});
@@ -21,13 +21,13 @@ Default.args = {
 export const Label = Template.bind({});
 Label.args = {
   ...commonArgs,
-  label: 'label'
+  label: "label"
 };
 
 export const Placeholder = Template.bind({});
 Placeholder.args = {
   ...commonArgs,
-  placeholder: 'placeholder'
+  placeholder: "placeholder"
 };
 
 export const Password = Template.bind({});
@@ -39,5 +39,5 @@ Password.args = {
 export const WithErrors = Template.bind({});
 WithErrors.args = {
   ...commonArgs,
-  errors: ['Error message 1', 'Error message 2', 'Error message 3']
+  errors: ["Error message 1", "Error message 2", "Error message 3"]
 };

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Input as AntDInput } from 'antd';
-import FormErrors from '../FormErrors/FormErrors';
-import clsx from 'clsx';
+import React from "react";
+import { Input as AntDInput } from "antd";
+import FormErrors from "../FormErrors/FormErrors";
+import clsx from "clsx";
 
 export enum InputTypes {
-  Text = 'text',
-  Password = 'password',
-  Email = 'email'
+  Text = "text",
+  Password = "password",
+  Email = "email"
 }
 
 export type InputProps = {
@@ -17,7 +17,7 @@ export type InputProps = {
   placeholder?: string;
   type?: InputTypes;
   onChange?: (value: string, name: string) => void;
-  errors?: string | string[];
+  errors?: string | string[] | undefined;
 };
 
 export const Input = (props: InputProps): JSX.Element => {
@@ -42,7 +42,7 @@ export const Input = (props: InputProps): JSX.Element => {
       <AntDInput
         id={id}
         name={name}
-        className={clsx([className, { 'error-input': errors }])}
+        className={clsx([className, { "error-input": errors }])}
         placeholder={placeholder}
         type={type}
         onChange={handleChange}

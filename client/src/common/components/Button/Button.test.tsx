@@ -1,21 +1,21 @@
 /// <reference types="cypress" />
-import React from 'react';
-import { mount } from '@cypress/react';
-import Button, { ButtonProps, ButtonTypes } from './Button';
+import React from "react";
+import { mount } from "@cypress/react";
+import Button, { ButtonProps, ButtonTypes } from "./Button";
 
-const buttonText = 'dummy text';
+const buttonText = "dummy text";
 const commonProps: ButtonProps = {
   buttonText: buttonText
 };
 
-describe('Button component', () => {
-  it('renders a button with text', () => {
+describe("Button component", () => {
+  it("renders a button with text", () => {
     mount(<Button {...commonProps} />);
 
-    cy.get('button').contains(buttonText);
+    cy.get("button").contains(buttonText);
   });
 
-  it('renders different types of button', () => {
+  it("renders different types of button", () => {
     const buttonTypes = Object.values(ButtonTypes);
 
     buttonTypes.forEach((buttonType) => {
@@ -25,20 +25,20 @@ describe('Button component', () => {
       };
       mount(<Button {...props} />);
 
-      cy.get('button').should('have.class', `btn-${buttonType}`);
+      cy.get("button").should("have.class", `btn-${buttonType}`);
     });
   });
 
-  it('triggers onClick callback', () => {
+  it("triggers onClick callback", () => {
     const props: ButtonProps = {
       ...commonProps,
-      onClick: cy.stub().as('handleClick')
+      onClick: cy.stub().as("handleClick")
     };
     mount(<Button {...props} />);
 
-    cy.get('button').click();
+    cy.get("button").click();
 
-    cy.get('@handleClick').should((stub) => {
+    cy.get("@handleClick").should((stub) => {
       expect(stub).to.have.been.calledOnce;
     });
   });

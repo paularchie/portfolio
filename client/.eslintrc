@@ -12,7 +12,6 @@
     "no-console": 1,
     "no-loops/no-loops": 1,
     "semi": ["error", "always"],
-    "quotes": ["error", "single"],
     "prettier/prettier": 2
   }
 }

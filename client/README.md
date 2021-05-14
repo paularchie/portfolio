@@ -1,17 +1,21 @@
-# online-store client
+# portfolio client
 
 # installing dependencies
 
 run 'npm install' or 'yarn'
 
-# Starting the server
+# run storybook
 
-run 'npm run dev' or 'yarn dev'
+run 'npm run sb' or 'yarn sb'
+
+<!-- # Starting the server
+
+run 'npm run dev' or 'yarn dev' -->
 
 # running unit tests in a browser
 
-run 'npm run cy:open' or 'yarn cy:open'
-
+run 'npm run cy:ct' or 'yarn cy:ct'
+<!-- 
 # running unit tests in headless mode
 
-run 'npm run cy:run' or 'yarn cy:run'
+run 'npm run cy:run' or 'yarn cy:run' -->
