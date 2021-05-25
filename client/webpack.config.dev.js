@@ -2,12 +2,9 @@ var path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+  mode: "development",
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js'
-  },
   module: {
     rules: [
       { test: /\.tsx?$/, loader: 'ts-loader' },
@@ -42,7 +39,9 @@ module.exports = {
   devServer: {
     contentBase: './dist',
     historyApiFallback: true,
-    disableHostCheck: true
+    port: 5000,
+    inline: true,
+    hot: true
   },
   plugins: [new HtmlWebpackPlugin({ template: path.join(__dirname, '/public/index.html') })],
   output: {

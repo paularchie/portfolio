@@ -5,10 +5,14 @@ import { queryWithVariables } from "../common/utils/functions";
 import { signIn } from "./auth-api";
 import { useQuery } from "react-query";
 
+type ResponseError = {
+  response: any
+}
+
 export const useAuthClient = (credentials: LoginCredentials) => {
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { data, refetch: singInQuery, isLoading, error } = useQuery(
+  const { data, refetch: singInQuery, isLoading, error } = useQuery<any, any>(
     ["getUser", credentials],
     queryWithVariables(signIn),
     {

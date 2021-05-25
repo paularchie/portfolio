@@ -3,10 +3,10 @@
       "esModuleInterop": true,
       "outDir": "./dist/",
       "sourceMap": true,
-      "noImplicitAny": true,
+      "noImplicitAny": false,
       "jsx": "react",
       "strictNullChecks": true,
-      "noUnusedLocals": true,
+      "noUnusedLocals": false,
       "target": "es5"
   },
   "include": [

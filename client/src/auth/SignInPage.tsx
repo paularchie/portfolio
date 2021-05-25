@@ -30,9 +30,9 @@ const SignInPage = (): JSX.Element => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="">Sign In</h1>
-      <div className="w-64">
+    <div className="flex justify-around h-full">
+      <div className="w-64 mt-36">
+        <h1 className="text-center mb-8">Sign In</h1>
         <form className="flex flex-col" onSubmit={onSubmit}>
           <Input
             id="email"
@@ -40,7 +40,7 @@ const SignInPage = (): JSX.Element => {
             name="email"
             onChange={onChange}
             errors={errorMessage && []}
-            />
+          />
           <Input
             id="password"
             label="Password"
