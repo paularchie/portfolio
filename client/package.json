@@ -7,6 +7,7 @@
     "cy:open": "npx cypress open",
     "cy:run": "npx cypress run",
     "cy:ct": "cypress open-ct",
+    "cy:ct-run": "cypress run-ct",
     "lint": "eslint . --ext .tsx --ext .ts",
     "lint-and-fix": "eslint . --ext .tsx --ext .ts --fix",
     "prettier-format": "prettier --config .prettierrc 'pages/**/*' --write",

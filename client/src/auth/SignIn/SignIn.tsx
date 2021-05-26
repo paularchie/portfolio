@@ -1,11 +1,11 @@
-import { Button, ButtonTypes } from "../common/components/Button/Button";
+import { Button, ButtonTypes } from "../../common/components/Button/Button";
 import React, { useState } from "react";
 
-import { Input } from "../common/components/Input/Input";
-import { LoginCredentials } from "./auth-types";
-import { useAuthClient } from "./useAuthClient";
+import { Input, InputTypes } from "../../common/components/Input/Input";
+import { LoginCredentials } from "./../auth-types";
+import { useAuthClient } from "./../useAuthClient";
 
-const SignInPage = (): JSX.Element => {
+const SignIn = (): JSX.Element => {
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: "",
     password: ""
@@ -38,6 +38,7 @@ const SignInPage = (): JSX.Element => {
             id="email"
             label="Email Address"
             name="email"
+            type={InputTypes.Email}
             onChange={onChange}
             errors={errorMessage && []}
           />
@@ -45,11 +46,12 @@ const SignInPage = (): JSX.Element => {
             id="password"
             label="Password"
             name="password"
+            type={InputTypes.Password}
             onChange={onChange}
             errors={errorMessage}
           />
           <Button
-            buttonText="Submit"
+            buttonText="Login"
             buttonType={ButtonTypes.Primary}
             htmlType="submit"
             className="mt-4"
@@ -62,4 +64,4 @@ const SignInPage = (): JSX.Element => {
   );
 };
 
-export default SignInPage;
+export default SignIn;

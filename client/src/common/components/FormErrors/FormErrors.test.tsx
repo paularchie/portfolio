@@ -2,6 +2,7 @@
 import React from "react";
 import { mount } from "@cypress/react";
 import FormErrors from "./FormErrors";
+import pageObjects from "../../../__test__/page-objects/global-page-objects";
 
 describe("FormErrors component", () => {
   it("renders a single error message", () => {
@@ -9,7 +10,7 @@ describe("FormErrors component", () => {
 
     mount(<FormErrors errors={errorMessage} />);
 
-    cy.get('[data-cy="error-message"]').contains(errorMessage);
+    cy.get(pageObjects.formErrors).contains(errorMessage);
   });
 
   it("renders multiple error messages", () => {
@@ -21,7 +22,7 @@ describe("FormErrors component", () => {
 
     mount(<FormErrors errors={errorMessages} />);
 
-    const errors = cy.get('[data-cy="error-message"]');
+    const errors = cy.get(pageObjects.formErrors);
 
     errors.should("have.length", errorMessages.length);
     errors.each((el, index) => {

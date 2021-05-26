@@ -2,6 +2,7 @@
 import React from "react";
 import { mount } from "@cypress/react";
 import { Input, InputTypes } from "./Input";
+import pageObjects from "../../../__test__/page-objects/global-page-objects";
 
 const commonProps = {
   id: "field-id",
@@ -71,7 +72,7 @@ describe("Input component", () => {
     };
     mount(<Input {...props} />);
 
-    cy.get('[data-cy="error-message"]').contains(props.errors);
+    cy.get(pageObjects.formErrors).contains(props.errors);
     getInput().should("have.class", "error-input");
   });
 
@@ -92,5 +93,5 @@ describe("Input component", () => {
 });
 
 function getInput() {
-  return cy.get('[data-cy="input-field"]');
+  return cy.get(pageObjects.inputField);
 }

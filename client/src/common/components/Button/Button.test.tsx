@@ -29,6 +29,16 @@ describe("Button component", () => {
     });
   });
 
+  it("makes the button disabled", () => {
+    const props = {
+      ...commonProps,
+      disabled: true
+    }
+    mount(<Button {...props} />);
+
+    cy.get("button").should("have.attr", "disabled");
+  });
+
   it("triggers onClick callback", () => {
     const props: ButtonProps = {
       ...commonProps,

@@ -10,6 +10,7 @@ export type ButtonProps = {
   disabled?: boolean;
   loading?: boolean;
   htmlType?: ButtonHtmlType;
+  attrs?: { [key: string]: string };
 };
 
 export enum ButtonTypes {
@@ -30,7 +31,8 @@ export const Button = ({
   className,
   disabled,
   loading,
-  htmlType
+  htmlType,
+  attrs
 }: ButtonProps): JSX.Element => {
   return (
     <AntDButton
@@ -40,6 +42,7 @@ export const Button = ({
       className={clsx([className, `btn-${buttonType}`])}
       disabled={disabled}
       loading={loading}
+      {...attrs}
     >
       {buttonText}
     </AntDButton>
