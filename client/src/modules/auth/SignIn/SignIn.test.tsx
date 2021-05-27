@@ -2,15 +2,18 @@
 import React from "react";
 import { mount } from "@cypress/react";
 import SignIn from "./SignIn";
-import MockClientProvider from "../../__test__/mocks/MockClientProvider";
-import { login_401_res } from "../../__test__/mocks/mockResponses";
-import pageObjects from "../../__test__/page-objects/global-page-objects";
+import MockClientProvider from "../../../__test__/mocks/MockClientProvider";
+import { login_401_res } from "../../../__test__/mocks/mockResponses";
+import pageObjects from "../../../__test__/page-objects/global-page-objects";
+import { BrowserRouter } from "react-router-dom";
 
 describe("SignInPage", () => {
   beforeEach(() => {
     mount(
       <MockClientProvider>
-        <SignIn />
+        <BrowserRouter>
+          <SignIn />
+        </BrowserRouter>
       </MockClientProvider>
     );
   });
@@ -46,8 +49,13 @@ describe("SignInPage", () => {
     );
   });
 
-  //TODO: write the test when the redirection on successful authentication has been implement
-  xit("should authenticate the user", () => {});
+  it("should redirect a user to the Home page on successful authentication", () => {
+    getEmailInput().type("admin@test.com");
+    getPasswordInput().type("admin");
+    getLoginButton().click();
+
+    cy.location("pathname").should("eq", "/");
+  });
 });
 
 function getEmailInput() {

@@ -1,9 +1,9 @@
-import { Button, ButtonTypes } from "../../common/components/Button/Button";
+import { Button, ButtonTypes } from "../../../common/components/Button/Button";
 import React, { useState } from "react";
 
-import { Input, InputTypes } from "../../common/components/Input/Input";
-import { LoginCredentials } from "./../auth-types";
-import { useAuthClient } from "./../useAuthClient";
+import { Input, InputTypes } from "../../../common/components/Input/Input";
+import { LoginCredentials } from "../auth-types";
+import { useAuthClient } from "../useAuthClient";
 
 const SignIn = (): JSX.Element => {
   const [credentials, setCredentials] = useState<LoginCredentials>({
