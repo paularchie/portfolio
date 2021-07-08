@@ -1,0 +1,46 @@
+{
+   "compilerOptions": {
+      // "lib": [
+      //    "es5",
+      //    "es6",
+      //    "DOM"
+      // ],
+      "lib": ["esnext", "dom"],
+      "types": [
+        "jest"
+      ],
+      "typeRoots": [
+        "./custom-typings.d.ts",
+        "./node_modules/@types"
+      ],
+      "target": "ES2018",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "outDir": "./build",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "esModuleInterop": true,
+      "sourceMap": true
+   }
+}
+
+// {
+//    "compilerOptions": {
+//      "sourceMap": true,
+//      "module": "commonjs",
+//      "target": "ES2018",
+//      "outDir": "dist",
+//      "lib": ["esnext", "dom"],
+//      // "strict": true,
+//      "noImplicitAny": true,
+//      "noImplicitThis": true,
+//      "alwaysStrict": true,
+//      "strictBindCallApply": true,
+//      "strictFunctionTypes": true,
+//      "esModuleInterop": true,
+//      "skipLibCheck": true,
+//      "noUnusedParameters": false
+//    },
+//    "include": ["./src"]
+//  }
+ 

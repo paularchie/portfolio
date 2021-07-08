@@ -7,17 +7,20 @@ import ReactDOM from "react-dom";
 import mockServer from "./__test__/mocks/mockServer";
 import AppContainer from "./AppContainer";
 import AppRouter from "./AppRouter";
+import { HttpErrorProvider } from "./common/contexts/HttpErrorContext";
 
 const queryClient = new QueryClient();
 
-mockServer();
+// mockServer();
 
 function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContainer>
-        <AppRouter />
-      </AppContainer>
+      <HttpErrorProvider>
+        <AppContainer>
+          <AppRouter />
+        </AppContainer>
+      </HttpErrorProvider>
     </QueryClientProvider>
   );
 }
