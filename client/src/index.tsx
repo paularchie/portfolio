@@ -6,7 +6,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import mockServer from "./__test__/mocks/mockServer";
 import AppContainer from "./AppContainer";
-import AppRouter from "./AppRouter";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Home from "./modules/home/Home";
+import SignIn from "./modules/auth/SignIn/SignIn";
 
 const queryClient = new QueryClient();
 
@@ -15,9 +17,14 @@ mockServer();
 function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppContainer>
-        <AppRouter />
-      </AppContainer>
+      <BrowserRouter>
+        <AppContainer>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/login" component={SignIn} />
+          </Switch>
+        </AppContainer>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }
