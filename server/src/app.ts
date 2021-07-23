@@ -1,5 +1,5 @@
 import express from "express";
-import { ApolloServer, AuthenticationError } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 import { schema } from "./schema";
 import { createContext } from "./utils/context.util";
@@ -16,8 +16,7 @@ const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
   context: createContext(),
   formatError: (error) => {
-    console.log({error})
-    console.warn("GraphQL Error:", error);
+    console.warn("GraphQL Error:", JSON.stringify(error));
     return error;
   },
   playground: {

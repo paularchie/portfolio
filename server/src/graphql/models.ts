@@ -6,6 +6,6 @@ export const User = objectType({
     t.int("id");
     t.string("email");
     t.string("username");
-    t.list.string('roles')
+    t.string('role')
   },
 });

@@ -3,20 +3,19 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id       Int         @id @default(autoincrement())
-  username String      @unique
-  email    String      @unique
-  password String
-  roles    UserRoles[]
+  id       Int    @id @default(autoincrement())
+  username String @db.VarChar(30) @unique
+  email    String @db.VarChar(40) @unique
+  password String @db.VarChar(100)
+  role     Role   @default(USER)
 }
 
-model UserRoles {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  users User[]
+enum Role {
+  USER
+  ADMIN
 }

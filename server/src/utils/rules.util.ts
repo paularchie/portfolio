@@ -1,5 +1,4 @@
 import {
-  ApolloError,
   AuthenticationError,
   ForbiddenError,
 } from "apollo-server-errors";
@@ -25,10 +24,9 @@ export const rules = {
       if (!ctx.currentUser) {
         return new AuthenticationError("Unauthenticated");
       }
-      console.log(ctx.currentUser)
-      // if (!ctx.currentUser.roles.includes(UserRolesEnum.Admin)) {
-      //   return new ForbiddenError("Unauthorized");
-      // }
+      if (ctx.currentUser.role !== UserRolesEnum.Admin) {
+        return new ForbiddenError("Unauthorized");
+      }
       return true;
     } catch (err) {
       return err;
@@ -42,8 +40,6 @@ export const permissions = shield({
   },
   Mutation: {
     createUser: rules.isAdmin,
-  },
-  // Subscription: {
-  //   latestPost: rules.isAuthenticatedUser,
-  // },
+    deleteUser: rules.isAdmin,
+  }
 });

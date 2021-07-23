@@ -21,13 +21,13 @@ export function createSessionToken(user) {
   return signJwt(
     {
       id: user.id,
-      roles: user.roles,
+      role: user.role,
     },
     RSA_PRIVATE_KEY,
     {
       algorithm: "RS256",
       expiresIn: SESSION_DURATION,
-      subject: JSON.stringify({ id: user.id, roles: user.roles }),
+      subject: JSON.stringify({ id: user.id, role: user.role }),
     }
   );
 }

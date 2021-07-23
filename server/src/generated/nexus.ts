@@ -33,7 +33,7 @@ export interface NexusGenObjects {
   User: { // root type
     email?: string | null; // String
     id?: number | null; // Int
-    roles?: Array<string | null> | null; // [String]
+    role?: string | null; // String
     username?: string | null; // String
   }
 }
@@ -61,7 +61,7 @@ export interface NexusGenFieldTypes {
   User: { // field return type
     email: string | null; // String
     id: number | null; // Int
-    roles: Array<string | null> | null; // [String]
+    role: string | null; // String
     username: string | null; // String
   }
 }
@@ -79,7 +79,7 @@ export interface NexusGenFieldTypeNames {
   User: { // field return type name
     email: 'String'
     id: 'Int'
-    roles: 'String'
+    role: 'String'
     username: 'String'
   }
 }
@@ -89,7 +89,7 @@ export interface NexusGenArgTypes {
     createUser: { // args
       email: string; // String!
       password: string; // String!
-      roles?: Array<string | null> | null; // [String]
+      role?: string | null; // String
       username: string; // String!
     }
     deleteUser: { // args
