@@ -2,6 +2,7 @@ import {
   AuthenticationError,
   ForbiddenError,
 } from "apollo-server-errors";
+import { ApolloError } from "apollo-server-express";
 import { shield, rule } from "graphql-shield";
 import { UserRolesEnum } from "./constants";
 import { Context } from "./types";
@@ -41,5 +42,20 @@ export const permissions = shield({
   Mutation: {
     createUser: rules.isAdmin,
     deleteUser: rules.isAdmin,
-  }
+  },
+}, {
+  fallbackError: async (error) => {
+    if (error instanceof ApolloError) {
+      // expected errors
+      return error;
+    } else if (error instanceof Error) {
+      // unexpected errors
+      return new ApolloError('Internal server error', 'ERR_INTERNAL_SERVER')
+    } else {
+      console.error('The resolver threw something that is not an error.')
+      console.error(error);
+      return new ApolloError('Internal server error', 'ERR_INTERNAL_SERVER')
+    }
+  },
 });
+

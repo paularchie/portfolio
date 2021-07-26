@@ -1,9 +1,17 @@
+
+import { createTestContext } from "./__helpers";
+
+const ctx = createTestContext();
+
+
+
 const usersQuery = `
   query {
     users {
       id
       email
       username
+      role
     }
   }
 `
@@ -18,35 +26,42 @@ const createUserMutation = `
 
 
 
-import { createTestContext } from './__helpers'
-const ctx = createTestContext()
-it('ensures that a draft can be created and published', async () => {
+// const client = ctx.client
+it.only('ensures that a draft can be created and published', async () => {
+  await ctx.loginAsAdmin();
   const newUser = await ctx.client.request(`
   mutation {
     createUser(
       username:"admin", 
       email:"admin@test.com",
-      password:"admi"
+      password:"admin"
+      role: "ADMIN"
     ) {
       id
       username
       email
+      role
     }
   }
   `)
+  console.dir(newUser, { depth: null })
 
-  console.log({newUser})
-//   expect(newUser).toMatchInlineSnapshot(`
-//     Object {
-//       "createUser": Object {
-//         "email": "admin@test.com",
-//         "id": 1,
-//         "username": "admi",
-//       },
-//     }
-// `)
+  // const users = await client.request(usersQuery)
+  // console.dir(users, { depth: null })
+  // const users = await client.user.findMany();
 
-const loginQuery = `
+
+  //   expect(newUser).toMatchInlineSnapshot(`
+  //     Object {
+  //       "createUser": Object {
+  //         "email": "admin@test.com",
+  //         "id": 1,
+  //         "username": "admi",
+  //       },
+  //     }
+  // `)
+
+  const loginQuery = `
   query {
     login(email: "admin@test.com", password: "admin") {
       username
@@ -54,7 +69,7 @@ const loginQuery = `
   }
 `
 
-const getUserQuery = `
+  const getUserQuery = `
   query {
     getUser {
       id
@@ -64,15 +79,15 @@ const getUserQuery = `
   }
 `
 
-const login = await ctx.client.request(loginQuery);
-// console.log('!!!!', login.response)
-// const user = await ctx.client.request(getUserQuery);
-try {
-  const users = await ctx.client.request(usersQuery);
-  console.log(users)
-} catch(e) {
-  console.log(e.response)
-}
+  // const login = await ctx.client.request(loginQuery);
+  // // console.log('!!!!', login.response)
+  // // const user = await ctx.client.request(getUserQuery);
+  // try {
+  //   const users = await ctx.client.request(usersQuery);
+  //   console.log(users)
+  // } catch(e) {
+  //   console.log(e.response)
+  // }
   // Create a new draft
   // const draftResult = await ctx.client.request(`            # 1
   //   mutation {
@@ -106,19 +121,4 @@ try {
   */
 })
 
-// async function signin() {
-//   const email = 'test@test.com';
-//   const password = 'password';
 
-//   const response = await request(app)
-//     .post('/api/users/signup')
-//     .send({
-//       email,
-//       password
-//     })
-//     .expect(201);
-
-//   const cookie = response.get('Set-Cookie');
-
-//   return cookie;
-// };

@@ -1,7 +1,6 @@
-import { stringArg, objectType, nonNull, intArg, list } from "nexus";
+import { User } from "@prisma/client";
+import { stringArg, objectType, nonNull, intArg } from "nexus";
 import { hashPassword } from "../../utils/password.util";
-import prisma from "../../utils/prisma.util";
-import { Context } from "../../utils/types";
 
 
 const UserMutation = objectType({
@@ -15,7 +14,7 @@ const UserMutation = objectType({
         password: nonNull(stringArg()),
         role: stringArg(),
       },
-      resolve: async (_, { username, email, password, role }, { db }: Context) => {
+      resolve: async (_, { username, email, password, role }: any, { db }): Promise<User> => {
         const user = await db.user.create({
           data: {
             username,
@@ -32,8 +31,8 @@ const UserMutation = objectType({
       args: {
         id: nonNull(intArg())
       },
-      resolve: async (_, { id }) => {
-        return await prisma.user.delete({
+      resolve: async (_, { id }, { db }): Promise<User> => {
+        return await db.user.delete({
           where: {
             id
           }

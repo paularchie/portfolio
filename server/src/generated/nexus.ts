@@ -17,6 +17,7 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  Roles: "ADMIN" | "USER"
 }
 
 export interface NexusGenScalars {
@@ -32,21 +33,22 @@ export interface NexusGenObjects {
   Query: {};
   User: { // root type
     email?: string | null; // String
-    id?: number | null; // Int
-    role?: string | null; // String
+    id?: string | null; // ID
+    role?: NexusGenEnums['Roles'] | null; // Roles
     username?: string | null; // String
   }
 }
 
 export interface NexusGenInterfaces {
+  Node: NexusGenRootTypes['User'];
 }
 
 export interface NexusGenUnions {
 }
 
-export type NexusGenRootTypes = NexusGenObjects
+export type NexusGenRootTypes = NexusGenInterfaces & NexusGenObjects
 
-export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
+export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
   Mutation: { // field return type
@@ -60,9 +62,12 @@ export interface NexusGenFieldTypes {
   }
   User: { // field return type
     email: string | null; // String
-    id: number | null; // Int
-    role: string | null; // String
+    id: string | null; // ID
+    role: NexusGenEnums['Roles'] | null; // Roles
     username: string | null; // String
+  }
+  Node: { // field return type
+    id: string | null; // ID
   }
 }
 
@@ -78,9 +83,12 @@ export interface NexusGenFieldTypeNames {
   }
   User: { // field return type name
     email: 'String'
-    id: 'Int'
-    role: 'String'
+    id: 'ID'
+    role: 'Roles'
     username: 'String'
+  }
+  Node: { // field return type name
+    id: 'ID'
   }
 }
 
@@ -105,18 +113,20 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
+  Node: "User"
 }
 
 export interface NexusGenTypeInterfaces {
+  User: "Node"
 }
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
 export type NexusGenInputNames = never;
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = keyof NexusGenEnums;
 
-export type NexusGenInterfaceNames = never;
+export type NexusGenInterfaceNames = keyof NexusGenInterfaces;
 
 export type NexusGenScalarNames = keyof NexusGenScalars;
 
@@ -124,7 +134,7 @@ export type NexusGenUnionNames = never;
 
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
-export type NexusGenAbstractsUsingStrategyResolveType = never;
+export type NexusGenAbstractsUsingStrategyResolveType = "Node";
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {
@@ -163,6 +173,8 @@ export interface NexusGenTypes {
 
 declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
+  }
+  interface NexusGenPluginInputTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
   }

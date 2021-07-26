@@ -7,15 +7,27 @@ type Mutation {
   deleteUser(id: Int!): User
 }
 
+interface Node {
+  """GUID for a resource"""
+  id: ID
+}
+
 type Query {
   getUser: User
   login(email: String!, password: String!): User
   users: [User]
 }
 
-type User {
+enum Roles {
+  ADMIN
+  USER
+}
+
+type User implements Node {
   email: String
-  id: Int
-  role: String
+
+  """GUID for a resource"""
+  id: ID
+  role: Roles
   username: String
 }

@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import { schema } from "./schema";
 import { createContext } from "./utils/context.util";
 import { permissions } from "./utils/rules.util";
-import { applyMiddleware } from "graphql-middleware";
+import { applyMiddleware, IMiddlewareGenerator } from "graphql-middleware";
 
 const corsOptions = {
   origin: `http://localhost:5000`,
@@ -16,7 +16,7 @@ const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
   context: createContext(),
   formatError: (error) => {
-    console.warn("GraphQL Error:", JSON.stringify(error));
+    console.dir({error}, {depth: null})
     return error;
   },
   playground: {

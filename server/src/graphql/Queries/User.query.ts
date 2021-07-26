@@ -1,8 +1,8 @@
+import { AuthenticationError } from "apollo-server-express";
 import { objectType, stringArg, nonNull } from "nexus";
 import prisma from "../../utils/prisma.util";
 import { comparePasswords } from "../../utils/password.util";
 import { createSessionToken } from "../../utils/auth.util";
-import { AuthenticationError } from "apollo-server-errors";
 import { User } from "@prisma/client";
 
 const UserQuery = objectType({
@@ -14,7 +14,7 @@ const UserQuery = objectType({
         email: nonNull(stringArg()),
         password: nonNull(stringArg()),
       },
-      resolve: async (_, { email, password }, { res }) => {
+      resolve: async (_, { email, password }, { res }): Promise<User> => {
         const user = await prisma.user.findUnique({
           where: { email }
         });
@@ -27,14 +27,14 @@ const UserQuery = objectType({
             });
             return user;
           }
-          return new AuthenticationError("Incorrect credentials");
+          throw new AuthenticationError("Incorrect credentials");
         }
         throw new AuthenticationError("Incorrect credentials");
       },
     });
     t.field("getUser", {
       type: "User",
-      resolve: (_, __, { currentUser }) => {
+      resolve: (_, __, { currentUser }): Promise<User> => {
         if (currentUser) {
           return prisma.user.findUnique({ where: { id: currentUser.id } });
         }
@@ -43,8 +43,8 @@ const UserQuery = objectType({
     });
     t.list.field("users", {
       type: "User",
-      resolve: async () => {
-        return await prisma.user.findMany()
+      resolve: async (): Promise<User[]> => {
+        return await prisma.user.findMany();
       },
     });
   },
