@@ -1,0 +1,13 @@
+/* #nav-container {
+  & .ant-menu-horizontal {
+    display: flex;
+
+    & .move-right {
+      margin-left: auto !important;
+    }
+  }
+} */
+
+.main {
+  background-color: green;
+}

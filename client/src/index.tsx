@@ -1,6 +1,5 @@
 import "../styles/index.css";
 import "../styles/custom-styles.css";
-
 import { QueryClient, QueryClientProvider } from "react-query";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -9,6 +8,7 @@ import AppContainer from "./AppContainer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./modules/home/Home";
 import SignIn from "./modules/auth/SignIn/SignIn";
+// import "../styles/nav-bar.css";
 
 const queryClient = new QueryClient();
 

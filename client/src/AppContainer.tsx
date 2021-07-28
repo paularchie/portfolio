@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 import NavBar, { NavItem } from "./common/components/NavBar/NavBar";
+import { UserOutlined } from "@ant-design/icons";
 
 //TODO: create Footer component
 const Footer = (): JSX.Element => {
@@ -13,6 +14,9 @@ const navItems: NavItem[] = [
     label: "Home"
   },
   {
+    icon: <UserOutlined />
+  },
+  {
     url: "/login",
     label: "Login"
   },
@@ -22,7 +26,9 @@ const navItems: NavItem[] = [
   },
   {
     url: "/products",
-    label: "Products",
+    // label: "Products",
+    moveRight: true,
+    icon: <UserOutlined />,
     items: [
       {
         url: "/product1",
