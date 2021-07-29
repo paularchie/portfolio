@@ -8,7 +8,7 @@ import AppContainer from "./AppContainer";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./modules/home/Home";
 import SignIn from "./modules/auth/SignIn/SignIn";
-// import "../styles/nav-bar.css";
+import "../styles/nav-bar.css";
 
 const queryClient = new QueryClient();
 

@@ -1,4 +1,4 @@
-/* #nav-container {
+#nav-container {
   & .ant-menu-horizontal {
     display: flex;
 
@@ -6,8 +6,4 @@
       margin-left: auto !important;
     }
   }
-} */
-
-.main {
-  background-color: green;
 }

@@ -4,7 +4,6 @@
 @import "../node_modules/antd/dist/antd.css";
 @import "./custom-styles.css";
 @import "./base.css";
-@import "./nav-bar.css";
 
 @layer base {
   h1 {
