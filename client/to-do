@@ -3,4 +3,4 @@ signup page
 auth integration
 admin portal 
   - display users in the table and implement crud
-serialize response  
+error handler

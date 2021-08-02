@@ -2,6 +2,7 @@ import React from "react";
 import MockClientProvider from "../src/__test__/mocks/MockClientProvider";
 import SignIn from "../src/modules/auth/SignIn/SignIn";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { HttpErrorProvider } from "../src/common/contexts/HttpErrorContext";
 
 export default {
   component: SignIn,
@@ -10,8 +11,8 @@ export default {
 
 const Template = () => (): JSX.Element => {
   return (
-    <>
-      <MockClientProvider>
+    <MockClientProvider>
+      <HttpErrorProvider>
         <BrowserRouter>
           <Switch>
             <Route
@@ -19,20 +20,11 @@ const Template = () => (): JSX.Element => {
               exact
               render={() => <div>Successfully redirected to Home Page</div>}
             />
-            <Route
-              path="*"
-              render={() => (
-                <div>
-                  <div>email: admin@test.com</div>
-                  <div>password: admin</div>
-                  <SignIn />
-                </div>
-              )}
-            />
+            <Route path="*" render={() => <SignIn />} />
           </Switch>
         </BrowserRouter>
-      </MockClientProvider>
-    </>
+      </HttpErrorProvider>
+    </MockClientProvider>
   );
 };
 

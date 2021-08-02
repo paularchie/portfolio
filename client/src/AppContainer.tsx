@@ -18,11 +18,10 @@ const NavBar = (): JSX.Element => {
 
 //TODO: create Footer component
 const Footer = (): JSX.Element => {
-  // return <footer className="border-t h-12 border-gray-50">Footer</footer>;
   return (
     <footer className="border-t h-12 border-gray-50">
       Copyright &copy; &nbsp;
-      <a href="http://www.young-london.org">Young London Today</a>
+      <a href="http://...">...</a>
       &nbsp;&nbsp;
       {new Date().getFullYear()}
     </footer>

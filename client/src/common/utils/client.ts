@@ -1,5 +1,4 @@
 import { GraphQLClient } from "graphql-request";
-import { useEffect } from "react";
 import { useErrorContext } from "../contexts/HttpErrorContext";
 
 export const BASE_URL = `http://localhost:4000/graphql`;
