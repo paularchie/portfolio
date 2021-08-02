@@ -1,53 +1,66 @@
-import { AuthenticationError } from "apollo-server-express";
-import { objectType, stringArg, nonNull } from "nexus";
-import prisma from "../../utils/prisma.util";
-import { comparePasswords } from "../../utils/password.util";
-import { createSessionToken } from "../../utils/auth.util";
-import { User } from "@prisma/client";
+import { AuthenticationError } from 'apollo-server-express';
+import { objectType, stringArg, nonNull, arg } from 'nexus';
+import { comparePasswords } from '../../utils/password.util';
+import { createSessionToken } from '../../utils/auth.util';
+import { GraphQLError } from '../../utils/constants';
 
 const UserQuery = objectType({
-  name: "Query",
+  name: 'Query',
   definition(t) {
-    t.field("login", {
-      type: "User",
+    t.field('login', {
+      type: 'User',
       args: {
-        email: nonNull(stringArg()),
-        password: nonNull(stringArg()),
+        data: nonNull(arg({ type: 'UserLoginInput' }))
       },
-      resolve: async (_, { email, password }, { res }): Promise<User> => {
+      resolve: async (_, { data: { email, password } }, { prisma, res }) => {
         const user = await prisma.user.findUnique({
           where: { email }
         });
+        
         if (user) {
           if (await comparePasswords(user.password, password)) {
             const token = await createSessionToken(user);
-            res.cookie("SESSION", token, {
+            res.cookie('SESSION', token, {
               httpOnly: true,
-              maxAge: 1000 * 60 * 60 * 24 * 365,
+              maxAge: 1000 * 60 * 60 * 24 * 365
             });
             return user;
           }
-          throw new AuthenticationError("Incorrect credentials");
+          throw new AuthenticationError(GraphQLError.AUTHENTICATION.message);
         }
-        throw new AuthenticationError("Incorrect credentials");
-      },
+        throw new AuthenticationError(GraphQLError.AUTHENTICATION.message);
+      }
     });
-    t.field("getUser", {
-      type: "User",
-      resolve: (_, __, { currentUser }): Promise<User> => {
+
+    t.field('logout', {
+      type: 'String',
+      resolve: (_, __, { res, currentUser }) => {
+        res.clearCookie('SESSION');
+        return currentUser?.id;
+      }
+    });
+
+    t.field('getUser', {
+      type: 'User',
+      resolve: (_, __, { prisma, currentUser }) => {
         if (currentUser) {
-          return prisma.user.findUnique({ where: { id: currentUser.id } });
+          return prisma.user.findUnique({
+            where: {
+              id: currentUser.id
+            }
+          });
         }
         return null;
-      },
+      }
     });
-    t.list.field("users", {
-      type: "User",
-      resolve: async (): Promise<User[]> => {
+
+    t.list.field('users', {
+      type: 'User',
+      resolve: async (_, __, { prisma }) => {
         return await prisma.user.findMany();
-      },
+      }
     });
-  },
+  }
 });
 
 export default UserQuery;

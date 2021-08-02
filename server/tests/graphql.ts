@@ -1,47 +1,41 @@
-export const createUser = /* GraphQL */ `
-  mutation createUser($name: String, $email: String!, $password: String!) {
-    signup(name: $name, email: $email, password: $password) {
-      ... on UserAlreadyExists {
-        message
-      }
-      ... on AuthPayload {
-        accessToken
-        user {
-          id
-          name
-        }
-      }
-    }
-  }
-`
+import { USER_FIELDS } from "../src/utils/constants";
 
-export const login = /* GraphQL */ `
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      ... on InvalidUser {
-        message
-      }
-      ... on AuthPayload {
-        accessToken
-      }
+export const createUserMutation = `
+  mutation createUser($data: UserCreateInput!) {
+    createUser(data: $data) {
+      ${USER_FIELDS}
     }
-  }
-`
+}`;
 
-export const createDraft = /* GraphQL */ `
-  mutation createDraft($title: String!, $content: String!) {
-    createDraft(title: $title, content: $content) {
-      title
-      published
+export const deleteUserMutation = `
+  mutation deleteUser($data: UserDeleteInput!) {
+    deleteUser(data: $data) {
+      ${USER_FIELDS}
     }
-  }
-`
+}`
 
-export const deletePost = /* GraphQL */ `
-  mutation deletePost($id: Int!) {
-    deletePost(id: $id) {
-      id
-      title
+export const loginQuery = `
+  query login($data: UserLoginInput!) {
+    login(data: $data) {
+      ${USER_FIELDS}
     }
-  }
-`
+}`
+
+export const logoutQuery = `
+  query {
+    logout
+  }`
+
+export const getUserQuery = `
+  query {
+    getUser {
+      ${USER_FIELDS}
+    }
+  }`
+
+export const usersQuery = `
+  query {
+    users {
+      ${USER_FIELDS}
+    }
+  }`

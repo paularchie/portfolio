@@ -19,9 +19,7 @@ export const useRequest = () => {
         const code = err.response.errors[0].extensions.code;
         const message = err.response.errors[0].message;
         if (code === "INTERNAL_SERVER_ERROR") {
-          // alert("handle error");
           setError({ code, message });
-
           throw new Error("Internal server error");
         } else {
           throw err.response.errors;

@@ -1,25 +1,18 @@
-import { PrismaClient } from '@prisma/client'
-import { PubSub } from 'apollo-server'
+import { PrismaClient, Role } from '@prisma/client'
 import { Request, Response } from 'express'
-// import { IncomingMessage } from 'http'
+import { GraphQLError } from './constants'
 
 export interface Context {
-  db: PrismaClient
+  prisma: PrismaClient
   req: Request
   res: Response
-  // pubsub: PubSub
-  // userId: number
-  currentUser: any
+  currentUser: { id: string, role: Role }
 }
 
-// export interface SocketContext {
-//   prisma: PrismaClient
-//   req: IncomingMessage
-//   pubsub: PubSub
-// }
+export type GraphQLError = (typeof GraphQLError)[keyof typeof GraphQLError];
 
-export interface Token {
-  userId: number
-  type: string
-  timestamp: number
-}
+export type TupleUnion<U extends string, R extends string[] = []> = {
+  [S in U]: Exclude<U, S> extends never
+  ? [...R, S]
+  : TupleUnion<Exclude<U, S>, [...R, S]>;
+}[U] & string[];

@@ -14,6 +14,21 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  UserCreateInput: { // input type
+    email: string; // String!
+    password: string; // String!
+    role?: NexusGenEnums['Roles'] | null; // Roles
+    username: string; // String!
+  }
+  UserDeleteInput: { // input type
+    email?: string | null; // String
+    id?: string | null; // String
+    username?: string | null; // String
+  }
+  UserLoginInput: { // input type
+    email?: string | null; // String
+    password?: string | null; // String
+  }
 }
 
 export interface NexusGenEnums {
@@ -40,13 +55,12 @@ export interface NexusGenObjects {
 }
 
 export interface NexusGenInterfaces {
-  Node: NexusGenRootTypes['User'];
 }
 
 export interface NexusGenUnions {
 }
 
-export type NexusGenRootTypes = NexusGenInterfaces & NexusGenObjects
+export type NexusGenRootTypes = NexusGenObjects
 
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
@@ -58,6 +72,7 @@ export interface NexusGenFieldTypes {
   Query: { // field return type
     getUser: NexusGenRootTypes['User'] | null; // User
     login: NexusGenRootTypes['User'] | null; // User
+    logout: string | null; // String
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   User: { // field return type
@@ -65,9 +80,6 @@ export interface NexusGenFieldTypes {
     id: string | null; // ID
     role: NexusGenEnums['Roles'] | null; // Roles
     username: string | null; // String
-  }
-  Node: { // field return type
-    id: string | null; // ID
   }
 }
 
@@ -79,6 +91,7 @@ export interface NexusGenFieldTypeNames {
   Query: { // field return type name
     getUser: 'User'
     login: 'User'
+    logout: 'String'
     users: 'User'
   }
   User: { // field return type name
@@ -87,46 +100,37 @@ export interface NexusGenFieldTypeNames {
     role: 'Roles'
     username: 'String'
   }
-  Node: { // field return type name
-    id: 'ID'
-  }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
     createUser: { // args
-      email: string; // String!
-      password: string; // String!
-      role?: string | null; // String
-      username: string; // String!
+      data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
     }
     deleteUser: { // args
-      id: number; // Int!
+      data: NexusGenInputs['UserDeleteInput']; // UserDeleteInput!
     }
   }
   Query: {
     login: { // args
-      email: string; // String!
-      password: string; // String!
+      data: NexusGenInputs['UserLoginInput']; // UserLoginInput!
     }
   }
 }
 
 export interface NexusGenAbstractTypeMembers {
-  Node: "User"
 }
 
 export interface NexusGenTypeInterfaces {
-  User: "Node"
 }
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = keyof NexusGenEnums;
 
-export type NexusGenInterfaceNames = keyof NexusGenInterfaces;
+export type NexusGenInterfaceNames = never;
 
 export type NexusGenScalarNames = keyof NexusGenScalars;
 
@@ -134,7 +138,7 @@ export type NexusGenUnionNames = never;
 
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
-export type NexusGenAbstractsUsingStrategyResolveType = "Node";
+export type NexusGenAbstractsUsingStrategyResolveType = never;
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {

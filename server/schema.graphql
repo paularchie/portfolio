@@ -3,18 +3,14 @@
 
 
 type Mutation {
-  createUser(email: String!, password: String!, role: String, username: String!): User
-  deleteUser(id: Int!): User
-}
-
-interface Node {
-  """GUID for a resource"""
-  id: ID
+  createUser(data: UserCreateInput!): User
+  deleteUser(data: UserDeleteInput!): User
 }
 
 type Query {
   getUser: User
-  login(email: String!, password: String!): User
+  login(data: UserLoginInput!): User
+  logout: String
   users: [User]
 }
 
@@ -23,11 +19,27 @@ enum Roles {
   USER
 }
 
-type User implements Node {
+type User {
   email: String
-
-  """GUID for a resource"""
   id: ID
   role: Roles
   username: String
+}
+
+input UserCreateInput {
+  email: String!
+  password: String!
+  role: Roles
+  username: String!
+}
+
+input UserDeleteInput {
+  email: String
+  id: String
+  username: String
+}
+
+input UserLoginInput {
+  email: String
+  password: String
 }

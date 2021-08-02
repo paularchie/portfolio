@@ -1,10 +1,10 @@
+import { Role } from "@prisma/client";
 import {
   AuthenticationError,
   ForbiddenError,
 } from "apollo-server-errors";
 import { ApolloError } from "apollo-server-express";
 import { shield, rule } from "graphql-shield";
-import { UserRolesEnum } from "./constants";
 import { Context } from "./types";
 
 export const rules = {
@@ -22,10 +22,7 @@ export const rules = {
   ),
   isAdmin: rule({ cache: "contextual" })((_parent, _args, ctx: Context) => {
     try {
-      if (!ctx.currentUser) {
-        return new AuthenticationError("Unauthenticated");
-      }
-      if (ctx.currentUser.role !== UserRolesEnum.Admin) {
+      if (ctx.currentUser?.role !== Role.ADMIN) {
         return new ForbiddenError("Unauthorized");
       }
       return true;
@@ -39,21 +36,20 @@ export const permissions = shield({
   Query: {
     users: rules.isAdmin,
   },
-  Mutation: {
-    createUser: rules.isAdmin,
-    deleteUser: rules.isAdmin,
-  },
+  Mutation: {},
 }, {
   fallbackError: async (error) => {
     if (error instanceof ApolloError) {
       // expected errors
       return error;
     } else if (error instanceof Error) {
+      return error;
       // unexpected errors
-      return new ApolloError('Internal server error', 'ERR_INTERNAL_SERVER')
+      // return new ApolloError('Internal server error', 'ERR_INTERNAL_SERVER')
     } else {
       console.error('The resolver threw something that is not an error.')
       console.error(error);
+      // return error
       return new ApolloError('Internal server error', 'ERR_INTERNAL_SERVER')
     }
   },

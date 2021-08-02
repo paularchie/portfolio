@@ -1,5 +1,8 @@
-import { User } from "@prisma/client";
-import { stringArg, objectType, nonNull, intArg } from "nexus";
+import { Role } from "@prisma/client";
+import { ForbiddenError } from "apollo-server-express";
+import { objectType, arg, nonNull } from "nexus";
+import { isAdmin } from "../../utils/auth.util";
+import { GraphQLError } from "../../utils/constants";
 import { hashPassword } from "../../utils/password.util";
 
 
@@ -9,32 +12,34 @@ const UserMutation = objectType({
     t.field("createUser", {
       type: "User",
       args: {
-        username: nonNull(stringArg()),
-        email: nonNull(stringArg()),
-        password: nonNull(stringArg()),
-        role: stringArg(),
+        data: nonNull(arg({ type: 'UserCreateInput' }))
       },
-      resolve: async (_, { username, email, password, role }: any, { db }): Promise<User> => {
-        const user = await db.user.create({
+      resolve: async (_, { data }, { currentUser, prisma }) => {
+        if (!isAdmin(currentUser) && data.role === Role.ADMIN) {
+          throw new ForbiddenError(GraphQLError.FORBIDDEN.message);
+        }
+        const user = await prisma.user.create({
           data: {
-            username,
-            email,
-            password: await hashPassword(password),
-            role
+            ...data,
+            password: await hashPassword(data.password),
           }
         });
         return user;
       },
     });
+
     t.field("deleteUser", {
       type: "User",
       args: {
-        id: nonNull(intArg())
+        data: nonNull(arg({ type: 'UserDeleteInput' }))
       },
-      resolve: async (_, { id }, { db }): Promise<User> => {
-        return await db.user.delete({
+      resolve: async (_, { data }, { currentUser, prisma }) => {
+        if (currentUser.id !== data.id && !isAdmin(currentUser)) {
+          throw new ForbiddenError(GraphQLError.FORBIDDEN.message)
+        }
+        return await prisma.user.delete({
           where: {
-            id
+            ...data
           }
         });
       }

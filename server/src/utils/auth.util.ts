@@ -3,6 +3,7 @@ const util = require("util");
 import * as path from "path";
 import * as fs from "fs";
 import * as jwt from "jsonwebtoken";
+import { Role } from "@prisma/client";
 
 export const signJwt = util.promisify(jwt.sign);
 
@@ -36,3 +37,6 @@ export async function decodeJwt(token) {
   return await jwt.verify(token, RSA_PUBLIC_KEY);
 }
 
+export const isAdmin = (user: { id: string, role: Role } | undefined): boolean => {
+  return user?.role === Role.ADMIN;
+}
