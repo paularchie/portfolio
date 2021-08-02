@@ -1,4 +1,4 @@
-import '../styles/index.css';
+import '../styles/main-styles.ts';
 
 
 export const parameters = {

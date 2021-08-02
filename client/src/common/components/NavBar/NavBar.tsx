@@ -1,9 +1,8 @@
-import React from "react";
-import { Menu } from "antd";
-import { MenuMode } from "antd/lib/menu";
-import { render } from "react-dom";
+import React from 'react';
+import { Menu } from 'antd';
+import { MenuMode } from 'antd/lib/menu';
 const { SubMenu } = Menu;
-import { UserOutlined } from "@ant-design/icons";
+import clsx from 'clsx';
 
 export type NavItem = {
   url?: string;
@@ -15,35 +14,32 @@ export type NavItem = {
 
 export type NavBarProps = {
   navItems: NavItem[];
-  onClick: (url: string) => void;
+  onClick: (url?: string) => void;
   mode?: MenuMode;
 };
 
 const NavBar = ({ navItems, mode, onClick }: NavBarProps): JSX.Element => {
-  // return <nav className="border-b h-12 border-grey-50">Navbar</nav>;
-
   return (
-    <div id="nav-container">
-      <Menu mode={mode || "horizontal"}>
+    <nav className="nav-container">
+      <Menu mode={mode || 'horizontal'}>
         {navItems.map((item: NavItem) => {
           return item.items ? (
             <SubMenu
-              className={item.moveRight ? "move-right" : ""}
+              className={clsx({ 'move-right': item.moveRight })}
               key="SubMenu"
               title={item.label}
               icon={item.icon}
             >
-              {item.items.map((subItem, index) => {
-                console.log({ subItem });
+              {item.items.map((subItem) => {
                 return (
-                  <Menu.Item key={`setting: ${subItem.label}`}>{subItem.label}</Menu.Item>
+                  <Menu.Item key={subItem.label}>{subItem.label}</Menu.Item>
                 );
               })}
             </SubMenu>
           ) : (
             <Menu.Item
               key={item.label}
-              onClick={() => onClick(item.url!)}
+              onClick={() => onClick(item.url)}
               icon={item.icon}
             >
               {item.label}
@@ -51,7 +47,7 @@ const NavBar = ({ navItems, mode, onClick }: NavBarProps): JSX.Element => {
           );
         })}
       </Menu>
-    </div>
+    </nav>
   );
 };
 
