@@ -19,7 +19,7 @@ export type NavBarProps = {
   mode?: MenuMode;
 };
 
-const NavBar = ({ navItems, mode, onClick }: NavBarProps): JSX.Element => {
+export const NavBar = ({ navItems, mode, onClick }: NavBarProps): JSX.Element => {
   // return <nav className="border-b h-12 border-grey-50">Navbar</nav>;
 
   return (
