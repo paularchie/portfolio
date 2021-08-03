@@ -2,7 +2,7 @@ var path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: './src/index.tsx',
   devtool: 'inline-source-map',
   module: {
@@ -10,25 +10,7 @@ module.exports = {
       { test: /\.tsx?$/, loader: 'ts-loader' },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [
-                  [
-                    'postcss-preset-env',
-                    {
-                      // Options
-                    }
-                  ]
-                ]
-              }
-            }
-          }
-        ]
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       }
     ]
   },
@@ -43,7 +25,11 @@ module.exports = {
     inline: true,
     hot: true
   },
-  plugins: [new HtmlWebpackPlugin({ template: path.join(__dirname, '/public/index.html') })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '/public/index.html')
+    })
+  ],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',

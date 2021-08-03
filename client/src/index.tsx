@@ -1,14 +1,12 @@
-import "../styles/index.css";
-import "../styles/custom-styles.css";
-import { QueryClient, QueryClientProvider } from "react-query";
-import React from "react";
-import ReactDOM from "react-dom";
-import mockServer from "./__test__/mocks/mockServer";
-import AppContainer from "./AppContainer";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Home from "./modules/home/Home";
-import SignIn from "./modules/auth/SignIn/SignIn";
-import "../styles/nav-bar.css";
+import { QueryClient, QueryClientProvider } from 'react-query';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import mockServer from './__test__/mocks/mockServer';
+import AppContainer from './AppContainer';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './modules/home/Home';
+import SignIn from './modules/auth/SignIn/SignIn';
+import '../styles/main-styles.ts';
 
 const queryClient = new QueryClient();
 
@@ -29,4 +27,4 @@ function App(): JSX.Element {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
