@@ -1,9 +1,6 @@
 const loginQuery = `
-    query($email: String!, $password: String!) { 
-        login (
-            email: $email, 
-            password: $password 
-        ) { 
+    query($data: UserLoginInput!) { 
+        login (data: $data) { 
             id
             username
             email
@@ -24,7 +21,7 @@ const userQuery = `
     }
 `;
 
-const getUserQuery = `
+const currentUser = `
     query { 
         getUser { 
             id
@@ -40,19 +37,9 @@ const logoutQuery = `
     }
 `;
 
-const checkIfValueExistsQuery = `
-    query($field: String!, $value: String!) {
-        checkIfValueExists(
-                field: $field,
-                value: $value
-            ) 
-    }
-`;
-
 export default {
   loginQuery,
   userQuery,
-  getUserQuery,
-  logoutQuery,
-  checkIfValueExistsQuery
+  getUserQuery: currentUser,
+  logoutQuery
 };

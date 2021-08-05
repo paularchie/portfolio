@@ -1,6 +1,6 @@
 import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import mockServer from "./mockServer";
+import mockServer from "./Server.mock";
 
 const queryClient = new QueryClient();
 
