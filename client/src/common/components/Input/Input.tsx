@@ -17,7 +17,8 @@ export type InputProps = {
   placeholder?: string;
   type?: InputTypes;
   onChange?: (value: string, name: string) => void;
-  errors?: string | string[] | undefined;
+  showError?: boolean;
+  errors?: string | string[] | null | undefined;
 };
 
 export const Input = (props: InputProps): JSX.Element => {
@@ -29,6 +30,7 @@ export const Input = (props: InputProps): JSX.Element => {
     placeholder,
     type = InputTypes.Text,
     onChange,
+    showError,
     errors
   } = props;
 
@@ -42,7 +44,7 @@ export const Input = (props: InputProps): JSX.Element => {
       <AntDInput
         id={id}
         name={name}
-        className={clsx([className, { "error-input": errors }])}
+        className={clsx([className, { "error-input": showError || errors }])}
         placeholder={placeholder}
         type={type}
         onChange={handleChange}

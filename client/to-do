@@ -1,2 +1,6 @@
 add new field - textarea
 signup page
+auth integration
+admin portal 
+  - display users in the table and implement crud
+error handler

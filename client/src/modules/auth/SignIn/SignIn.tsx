@@ -1,17 +1,23 @@
 import { Button, ButtonTypes } from "../../../common/components/Button/Button";
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { Input, InputTypes } from "../../../common/components/Input/Input";
 import { LoginCredentials } from "../auth-types";
-import { useAuthClient } from "../useAuthClient";
+import { useSignIn } from "../../../common/hooks/useSignIn";
+import { useHistory } from "react-router";
 
 const SignIn = (): JSX.Element => {
+  const history = useHistory();
+
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: "",
     password: ""
   });
 
-  const { signIn, isLoading, errorMessage } = useAuthClient(credentials);
+  const { refetch: signIn, isLoading, error, isSuccess } = useSignIn(credentials);
+
+  useEffect(() => {
+    isSuccess && history.push("/");
+  }, [isSuccess]);
 
   const onChange = (value: string, fieldName: string): void => {
     setCredentials({
@@ -20,13 +26,17 @@ const SignIn = (): JSX.Element => {
     });
   };
 
-  const onSubmit = async (event: any): Promise<void> => {
+  const onSubmit = (event: any): void => {
     event.preventDefault();
     signIn();
   };
 
   const isButtonDisabled = (): boolean => {
     return !(credentials.email && credentials.password);
+  };
+
+  const getErrorMessage = (): string | null => {
+    return error && error[0]?.message;
   };
 
   return (
@@ -40,7 +50,7 @@ const SignIn = (): JSX.Element => {
             name="email"
             type={InputTypes.Email}
             onChange={onChange}
-            errors={errorMessage && []}
+            showError={!!getErrorMessage()}
           />
           <Input
             id="password"
@@ -48,7 +58,7 @@ const SignIn = (): JSX.Element => {
             name="password"
             type={InputTypes.Password}
             onChange={onChange}
-            errors={errorMessage}
+            errors={getErrorMessage()}
           />
           <Button
             buttonText="Login"
