@@ -18,7 +18,6 @@ export interface NexusGenInputs {
     email: string; // String!
     password: string; // String!
     role?: NexusGenEnums['Roles'] | null; // Roles
-    username: string; // String!
   }
   UserDeleteInput: { // input type
     email?: string | null; // String
@@ -50,7 +49,6 @@ export interface NexusGenObjects {
     email?: string | null; // String
     id?: string | null; // ID
     role?: NexusGenEnums['Roles'] | null; // Roles
-    username?: string | null; // String
   }
 }
 
@@ -79,7 +77,6 @@ export interface NexusGenFieldTypes {
     email: string | null; // String
     id: string | null; // ID
     role: NexusGenEnums['Roles'] | null; // Roles
-    username: string | null; // String
   }
 }
 
@@ -98,7 +95,6 @@ export interface NexusGenFieldTypeNames {
     email: 'String'
     id: 'ID'
     role: 'Roles'
-    username: 'String'
   }
 }
 

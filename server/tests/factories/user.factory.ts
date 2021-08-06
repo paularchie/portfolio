@@ -6,7 +6,6 @@ import { createFactory } from "../__helpers";
 const getUserDefaultAttrs = async (): Promise<Partial<User>> => {
   return {
     email: faker.internet.email(),
-    username: faker.internet.userName(),
     password: await hashPassword(faker.internet.password())
   };
 }

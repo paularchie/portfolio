@@ -23,14 +23,12 @@ type User {
   email: String
   id: ID
   role: Roles
-  username: String
 }
 
 input UserCreateInput {
   email: String!
   password: String!
   role: Roles
-  username: String!
 }
 
 input UserDeleteInput {

@@ -15,7 +15,6 @@ export const GraphQLError = {
 
 const USER_SCHEMA_FIELDS: TupleUnion<keyof User> = [
   'id',
-  'username',
   'email',
   'role',
   "password"

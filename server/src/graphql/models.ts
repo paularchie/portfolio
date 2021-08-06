@@ -11,7 +11,6 @@ export const User = objectType({
   definition(t) {
     t.id('id');
     t.string("email");
-    t.string("username");
     t.field('role', { type: RolesEnum })
   },
 });
@@ -20,7 +19,6 @@ export const UserCreateInput = inputObjectType({
   name: "UserCreateInput",
   definition(t) {
     t.nonNull.string('email');
-    t.nonNull.string('username');
     t.nonNull.string('password');
     t.field('role', { type: RolesEnum });
   }

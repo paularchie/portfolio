@@ -33,7 +33,7 @@ describe('createUser mutation', () => {
 
       const res = await ctx.request(createUserMutation, variables);
 
-      const createdUser = await findUser(user.username);
+      const createdUser = await findUser(user.email);
 
       expect(createdUser).toMatchObject(extractUserPublicFields(user));
       expect(res.createUser).toEqual(createdUser);
@@ -57,7 +57,6 @@ describe('deleteUser mutation', () => {
   describe('being logged in as Admin', () => {
     test('deletes a user', async () => {
       await checkDeleteUser('id');
-      await checkDeleteUser('username');
       await checkDeleteUser('email');
 
       async function checkDeleteUser(fieldName: string) {
@@ -68,11 +67,11 @@ describe('deleteUser mutation', () => {
           }
         };
 
-        expect(await findUser(user.username)).not.toBe(null);
+        expect(await findUser(user.email)).not.toBe(null);
 
         const res = await ctx.requestAsAdmin(deleteUserMutation, variables);
 
-        expect(await findUser(user.username)).toBe(null);
+        expect(await findUser(user.email)).toBe(null);
         expect(res.deleteUser).toMatchObject({ id: user.id });
       }
     });
@@ -99,7 +98,7 @@ describe('deleteUser mutation', () => {
         variables
       );
 
-      expect(res.deleteUser).toMatchObject({ username: loggedInUser.username });
+      expect(res.deleteUser).toMatchObject({ email: loggedInUser.email });
     });
   });
 });
@@ -118,7 +117,7 @@ describe('login query', () => {
     };
 
     const res = await ctx.request(loginQuery, variables);
-    const actualUser = await findUser(user.username);
+    const actualUser = await findUser(user.email);
 
     expect(res.login).toEqual(actualUser);
   });
@@ -157,7 +156,7 @@ describe('getUser query', () => {
     const user = await UserFactory.create();
 
     const res = await ctx.requestAsUser(user, getUserQuery);
-    const actualUser = await findUser(user.username);
+    const actualUser = await findUser(user.email);
 
     expect(res.getUser).toEqual(actualUser);
   });
@@ -193,10 +192,10 @@ describe('users query', () => {
   });
 });
 
-async function findUser(username: string): Promise<User> {
+async function findUser(email: string): Promise<User> {
   return (await ctx.prisma.user.findUnique({
     where: {
-      username
+      email
     },
     select: {
       ...userPublicFieldsSelect()

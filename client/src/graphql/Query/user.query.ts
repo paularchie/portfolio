@@ -2,8 +2,6 @@ const loginQuery = `
     query($data: UserLoginInput!) { 
         login (data: $data) { 
             id
-            username
-            email
         } 
     }
 `;
@@ -14,7 +12,6 @@ const userQuery = `
             id
             firstName
             lastName
-            username
             email
             roles
         }
@@ -25,7 +22,6 @@ const currentUser = `
     query { 
         getUser { 
             id
-            username
             email
         } 
     }

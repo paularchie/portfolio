@@ -15,13 +15,11 @@ async function main() {
 
   await UserFactory.createMany(30);
   await UserFactory.create({
-    username: 'admin',
     email: 'admin@protonmail.com',
     password: await hashPassword('admin'),
     role: Role.ADMIN
   });
   await UserFactory.create({
-    username: 'adam',
     email: 'adam@protonmail.com',
     password: await hashPassword('adam')
   });
