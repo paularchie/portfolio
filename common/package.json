@@ -1,5 +1,5 @@
 {
-  "name": "@supreme-tech/common",
+  "name": "@portfolio/common",
   "version": "1.0.0",
   "description": "",
   "main": "./build/index.js",
@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean": "del ./build/*",
-    "build": "npm run clean && tsc",
+    "build": "tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
     "package": "npm run build && npm pack"
   },

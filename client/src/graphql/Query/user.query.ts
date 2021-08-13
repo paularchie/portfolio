@@ -6,6 +6,22 @@ const loginQuery = `
     }
 `;
 
+const signUpMutation = `
+    mutation($data: UserSignUpInput!) { 
+        signUp (data: $data) { 
+            ...on ValidationErrors {
+                errors {
+                    message
+                    field
+                }   
+            }
+            ... on User {
+                id
+            }
+        } 
+    }
+`;
+
 const userQuery = `
     query { 
         users {
@@ -35,6 +51,7 @@ const logoutQuery = `
 
 export default {
   loginQuery,
+  signUpMutation,
   userQuery,
   getUserQuery: currentUser,
   logoutQuery

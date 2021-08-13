@@ -1,0 +1,69 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\ia32_win\compiler;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\HP\Common\HPDestPlgIn\;C:\Program Files (x86)\HP\IdrsOCR_15.3.1129.0\;C:\Program Files\Kubernetes\Minikube;C:\kube;C:\Program Files\PuTTY\;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Pawel\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\doctl\;C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.2.0\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Apache24\bin;C:\Users\Pawel\AppData\Roaming\npm;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Pawel\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\HP\Common\HPDestPlgIn\;C:\kube;C:\Program Files\PuTTY\puttygen;C:\Users\Pawel\AppData\Roaming\nvm;C:\Program Files\nodejs
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  14.15.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@portfolio%2fcommon: Not found
+      at Request.params.callback [as _callback] (C:\Users\Pawel\AppData\Roaming\nvm\v14.15.0\node_modules\yarn\lib\cli.js:66988:18)
+      at Request.self.callback (C:\Users\Pawel\AppData\Roaming\nvm\v14.15.0\node_modules\yarn\lib\cli.js:140662:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (C:\Users\Pawel\AppData\Roaming\nvm\v14.15.0\node_modules\yarn\lib\cli.js:141634:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (C:\Users\Pawel\AppData\Roaming\nvm\v14.15.0\node_modules\yarn\lib\cli.js:141556:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1327:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+
+npm manifest: 
+  {
+    "name": "@portfolio/common",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./build/index.js",
+    "types": "./build/index.d.ts",
+    "files": [
+      "build/**/*"
+    ],
+    "scripts": {
+      "clean": "del ./build/*",
+      "build": "npm run clean && tsc",
+      "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
+      "package": "npm run build && npm pack"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "del-cli": "^3.0.0",
+      "typescript": "^3.8.3"
+    },
+    "dependencies": {
+      "@types/cookie-session": "^2.0.39",
+      "@types/express": "^4.17.5",
+      "@types/jsonwebtoken": "^8.3.9",
+      "cookie-session": "^1.4.0",
+      "express": "^4.17.1",
+      "express-validator": "^6.4.0",
+      "jsonwebtoken": "^8.5.1",
+      "node-nats-streaming": "^0.2.6",
+      "@portfolio/common": "1.0.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

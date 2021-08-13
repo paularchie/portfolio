@@ -1,5 +1,5 @@
-import { Role } from "@prisma/client";
-import { enumType, inputObjectType, objectType } from "nexus";
+import { enumType, inputObjectType, objectType, unionType } from 'nexus';
+import { Role } from '@prisma/client';
 
 export const RolesEnum = enumType({
   name: 'Roles',
@@ -7,16 +7,16 @@ export const RolesEnum = enumType({
 });
 
 export const User = objectType({
-  name: "User",
+  name: 'User',
   definition(t) {
     t.id('id');
-    t.string("email");
-    t.field('role', { type: RolesEnum })
-  },
+    t.string('email');
+    t.field('role', { type: RolesEnum });
+  }
 });
 
 export const UserCreateInput = inputObjectType({
-  name: "UserCreateInput",
+  name: 'UserSignUpInput',
   definition(t) {
     t.nonNull.string('email');
     t.nonNull.string('password');
@@ -25,7 +25,7 @@ export const UserCreateInput = inputObjectType({
 });
 
 export const UserDeleteInput = inputObjectType({
-  name: "UserDeleteInput",
+  name: 'UserDeleteInput',
   definition(t) {
     t.string('id');
     t.string('username');
@@ -34,9 +34,37 @@ export const UserDeleteInput = inputObjectType({
 });
 
 export const UserLoginInput = inputObjectType({
-  name: "UserLoginInput",
+  name: 'UserLoginInput',
   definition(t) {
     t.string('email');
     t.string('password');
+  }
+});
+
+export const ValidationError = objectType({
+  name: 'ValidationError',
+  definition(t) {
+    t.nonNull.string('message');
+    t.nonNull.string('field');
+    t.list.string('errorTypes');
+  }
+});
+export const ValidationErrors = objectType({
+  name: 'ValidationErrors',
+  definition(t) {
+    t.nonNull.list.field('errors', {
+      type: ValidationError
+    });
+  }
+});
+
+export const SignupResult = unionType({
+  name: 'SignupResult',
+  definition(t) {
+    t.members('User', 'ValidationErrors');
+  },
+  resolveType(t) {
+    // @ts-ignore
+    return t.__typename;
   }
 });

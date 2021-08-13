@@ -16,3 +16,9 @@ export type TupleUnion<U extends string, R extends string[] = []> = {
   ? [...R, S]
   : TupleUnion<Exclude<U, S>, [...R, S]>;
 }[U] & string[];
+
+export type ValidationError = {
+  message: string;
+  field: string;
+  errorTypes?: string[]; //i.e. for password ['min', 'uppercase', 'digits']
+}

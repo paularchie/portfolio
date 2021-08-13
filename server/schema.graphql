@@ -3,8 +3,8 @@
 
 
 type Mutation {
-  createUser(data: UserCreateInput!): User
   deleteUser(data: UserDeleteInput!): User
+  signUp(data: UserSignUpInput!): SignupResult
 }
 
 type Query {
@@ -19,15 +19,11 @@ enum Roles {
   USER
 }
 
+union SignupResult = User | ValidationErrors
+
 type User {
   email: String
   id: ID
-  role: Roles
-}
-
-input UserCreateInput {
-  email: String!
-  password: String!
   role: Roles
 }
 
@@ -40,4 +36,20 @@ input UserDeleteInput {
 input UserLoginInput {
   email: String
   password: String
+}
+
+input UserSignUpInput {
+  email: String!
+  password: String!
+  role: Roles
+}
+
+type ValidationError {
+  errorTypes: [String]
+  field: String!
+  message: String!
+}
+
+type ValidationErrors {
+  errors: [ValidationError]!
 }

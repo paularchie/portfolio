@@ -7,9 +7,9 @@
       "jsx": "react",
       "strictNullChecks": true,
       "noUnusedLocals": false,
-      "target": "es5"
+      "target": "es5",
   },
   "include": [
       "./src/**/*"
-  ]
+  ],
 }
