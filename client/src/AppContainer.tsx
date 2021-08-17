@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import NavBar, { NavItem } from './common/components/NavBar/NavBar';
+import NavBar from './common/components/NavBar/NavBar';
 import { UserOutlined } from '@ant-design/icons';
-import { ReactQueryDevtools } from 'react-query-devtools';
-import { useGetCurrentUser } from './common/hooks/useGetCurrentUser';
-import { useSignIn } from './common/hooks/useSignIn';
 import { useErrorContext } from './common/contexts/HttpErrorContext';
+import { navItems } from './common/utils/constants';
 
 //TODO: create Footer component
 const Footer = (): JSX.Element => {
@@ -19,59 +17,28 @@ const Footer = (): JSX.Element => {
   );
 };
 
-const navItems: NavItem[] = [
-  {
-    url: '/',
-    label: 'Home'
-  },
-  {
-    icon: <UserOutlined />
-  },
-  {
-    url: '/login',
-    label: 'Login'
-  },
-  {
-    url: '/signup',
-    label: 'Sign up'
-  },
-  {
-    url: '/products',
-    // label: "Products",
-    moveRight: true,
-    icon: <UserOutlined />,
-    items: [
-      {
-        url: '/product1',
-        label: 'Product1'
-      },
-      {
-        url: '/product2',
-        label: 'Product2'
-      },
-      {
-        url: '/product3',
-        label: 'Product3'
-      }
-    ]
-  }
-];
-
 const AppContainer = ({ children }): JSX.Element => {
+  const ctx = useErrorContext();
   const history = useHistory();
+  const [currentPath, setCurrentPath] = useState('');
+
+  useEffect(() => {
+    setCurrentPath(history.location.pathname);
+  }, [history]);
 
   const handleClick = (url: string): void => {
     history.push(url);
+    url && setCurrentPath(url);
   };
-  const ctx = useErrorContext();
 
+  //TODO: implement error notification banner
   useEffect(() => {
     console.log('!!!!', ctx.error);
   }, [ctx.error]);
 
   return (
     <div className="flex flex-col h-full">
-      <NavBar navItems={navItems} onClick={handleClick} />
+      <NavBar navItems={navItems} onClick={handleClick} selectedKeys={[currentPath]} />
       <main className="flex-1">{children}</main>
       <Footer />
       {/* <ReactQueryDevtools /> */}

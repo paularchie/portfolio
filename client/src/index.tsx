@@ -7,8 +7,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './modules/home/Home';
 import SignIn from './modules/auth/SignIn/SignIn';
 import '../styles/main-styles.ts';
-import '../styles/index.css';
-import '../styles/custom-styles.css';
 
 import { HttpErrorProvider } from './common/contexts/HttpErrorContext';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Menu } from 'antd';
-import { MenuMode } from 'antd/lib/menu';
 const { SubMenu } = Menu;
 import clsx from 'clsx';
 
@@ -10,40 +9,48 @@ export type NavItem = {
   icon?: JSX.Element;
   items?: NavItem[];
   moveRight?: boolean;
+  key: string;
+  selected?: boolean;
+  show?: boolean;
 };
+
+export type MenuMode = 'horizontal' | 'vertical' | 'inline';
 
 export type NavBarProps = {
   navItems: NavItem[];
   onClick: (url?: string) => void;
   mode?: MenuMode;
+  selectedKeys: string[];
 };
 
-const NavBar = ({ navItems, mode, onClick }: NavBarProps): JSX.Element => {
+const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Element => {
+  const getItemCommonProps = (item: NavItem) => {
+    return (
+      item.show !== false && {
+        className: clsx({ 'move-right': item.moveRight }),
+        key: item.key,
+        icon: item.icon,
+        onClick: () => onClick(item.url)
+      }
+    );
+  };
+
+  const isVisible = (item: NavItem): boolean => {
+    return item.show !== false;
+  };
+
   return (
     <nav className="nav-container">
-      <Menu mode={mode || 'horizontal'}>
+      <Menu mode={mode || 'horizontal'} selectedKeys={selectedKeys}>
         {navItems.map((item: NavItem) => {
-          return item.items ? (
-            <SubMenu
-              className={clsx({ 'move-right': item.moveRight })}
-              key="SubMenu"
-              title={item.label}
-              icon={item.icon}
-            >
-              {item.items.map((subItem) => {
-                return (
-                  <Menu.Item key={subItem.label}>{subItem.label}</Menu.Item>
-                );
+          return isVisible(item) && item.items ? (
+            <SubMenu title={item.label} {...getItemCommonProps(item)}>
+              {item.items.map((subItem: NavItem) => {
+                return isVisible(subItem) && <Menu.Item {...getItemCommonProps(subItem)}>{subItem.label}</Menu.Item>;
               })}
             </SubMenu>
           ) : (
-            <Menu.Item
-              key={item.label}
-              onClick={() => onClick(item.url)}
-              icon={item.icon}
-            >
-              {item.label}
-            </Menu.Item>
+            isVisible(item) && <Menu.Item {...getItemCommonProps(item)}>{item.label}</Menu.Item>
           );
         })}
       </Menu>
