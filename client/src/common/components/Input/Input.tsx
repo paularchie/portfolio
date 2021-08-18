@@ -22,21 +22,9 @@ export type InputProps = {
 };
 
 export const Input = (props: InputProps): JSX.Element => {
-  const {
-    id,
-    name,
-    label,
-    className,
-    placeholder,
-    type = InputTypes.Text,
-    onChange,
-    showError,
-    errors
-  } = props;
+  const { id, name, label, className, placeholder, type = InputTypes.Text, onChange, showError, errors } = props;
 
-  const handleChange = ({
-    target
-  }: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
     onChange && onChange(target.value, name);
   };
 

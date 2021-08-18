@@ -2,7 +2,9 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AppContainer from './AppContainer';
-import AppRouter from './AppRouter';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './modules/home/Home';
+import SignIn from './modules/auth/SignIn/SignIn';
 import { HttpErrorProvider } from './common/contexts/HttpErrorContext';
 
 const queryClient = new QueryClient();
@@ -10,11 +12,16 @@ const queryClient = new QueryClient();
 function App(): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <HttpErrorProvider>
-        <AppContainer>
-          <AppRouter />
-        </AppContainer>
-      </HttpErrorProvider>
+      <BrowserRouter>
+        <HttpErrorProvider>
+          <AppContainer>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" component={SignIn} />
+            </Switch>
+          </AppContainer>
+        </HttpErrorProvider>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 }

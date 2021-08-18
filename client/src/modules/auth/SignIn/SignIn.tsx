@@ -13,12 +13,7 @@ const SignIn = (): JSX.Element => {
     password: ''
   });
 
-  const {
-    refetch: signIn,
-    isLoading,
-    error,
-    isSuccess
-  } = useSignIn(credentials);
+  const { refetch: signIn, isLoading, error, isSuccess } = useSignIn(credentials);
 
   useEffect(() => {
     isSuccess && history.push('/');
