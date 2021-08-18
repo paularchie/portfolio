@@ -13,7 +13,8 @@
     "prisma:studio": "npx prisma studio",
     "prisma:generate": "prisma generate",
     "db:migrate:prod": "npx prisma migrate deploy --preview-feature",
-    "db:push": "npx prisma db push"
+    "db:push": "npx prisma db push",
+    "gen-types": "ts-node src/schema-pre.ts"
   },
   "jest": {
     "preset": "ts-jest",

@@ -1,22 +1,27 @@
-import { Button, ButtonTypes } from "../../../common/components/Button/Button";
-import React, { useEffect, useState } from "react";
-import { Input, InputTypes } from "../../../common/components/Input/Input";
-import { LoginCredentials } from "../auth-types";
-import { useSignIn } from "../../../common/hooks/useSignIn";
-import { useHistory } from "react-router";
+import { Button, ButtonTypes } from '../../../common/components/Button/Button';
+import React, { useEffect, useState } from 'react';
+import { Input, InputTypes } from '../../../common/components/Input/Input';
+import { useSignIn } from '../../../common/hooks/useSignIn';
+import { useHistory } from 'react-router';
+import { UserLoginInput } from '@portfolio/common';
 
 const SignIn = (): JSX.Element => {
   const history = useHistory();
 
-  const [credentials, setCredentials] = useState<LoginCredentials>({
-    email: "",
-    password: ""
+  const [credentials, setCredentials] = useState<UserLoginInput>({
+    email: '',
+    password: ''
   });
 
-  const { refetch: signIn, isLoading, error, isSuccess } = useSignIn(credentials);
+  const {
+    refetch: signIn,
+    isLoading,
+    error,
+    isSuccess
+  } = useSignIn(credentials);
 
   useEffect(() => {
-    isSuccess && history.push("/");
+    isSuccess && history.push('/');
   }, [isSuccess]);
 
   const onChange = (value: string, fieldName: string): void => {

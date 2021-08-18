@@ -1,8 +1,8 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import SignIn from "./modules/auth/SignIn/SignIn";
-import SignUp from "./modules/auth/SignUp/SignUp";
-import Home from "./modules/home/Home";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import SignIn from './modules/auth/SignIn/SignIn';
+import SignUp from './modules/auth/SignUp/SignUp';
+import Home from './modules/home/Home';
 
 const AppRouter = (): JSX.Element => {
   return (

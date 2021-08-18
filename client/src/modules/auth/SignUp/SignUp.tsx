@@ -1,14 +1,14 @@
 import { Button, ButtonTypes } from '../../../common/components/Button/Button';
 import React, { useEffect, useState } from 'react';
 import { Input, InputTypes } from '../../../common/components/Input/Input';
-import { LoginCredentials } from '../auth-types';
 import { useHistory } from 'react-router';
 import { useSignUp } from '../../../common/hooks/useSignUp';
+import { UserSignUpInput } from '@portfolio/common';
 
 const SignUp = (): JSX.Element => {
   const history = useHistory();
 
-  const [credentials, setCredentials] = useState<LoginCredentials>({
+  const [credentials, setCredentials] = useState<UserSignUpInput>({
     email: '',
     password: ''
   });
@@ -19,7 +19,7 @@ const SignUp = (): JSX.Element => {
 
   const signUp = useSignUp();
 
-  const { data, isLoading} = signUp;
+  const { data, isLoading } = signUp;
 
   console.log({ data });
 

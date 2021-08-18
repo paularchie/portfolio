@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
       "esModuleInterop": true,
       "outDir": "./dist/",
       "sourceMap": true,
@@ -7,7 +12,14 @@
       "jsx": "react",
       "strictNullChecks": true,
       "noUnusedLocals": false,
-      "target": "es5",
+      "isolatedModules": true,
+      "resolveJsonModule": true,
+      "noEmit": true,
+      "moduleResolution": "node",
+      "strict": true,
+      "skipLibCheck": true,
+      "allowSyntheticDefaultImports": true,
+      "allowJs": true
   },
   "include": [
       "./src/**/*"

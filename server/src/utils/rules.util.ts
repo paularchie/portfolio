@@ -2,26 +2,24 @@ import { Role } from '@prisma/client';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-errors';
 import { ApolloError } from 'apollo-server-express';
 import { shield, rule } from 'graphql-shield';
-import { GraphQLError } from './constants';
+import { GraphQLErrors } from '../../../common/build';
 import { Context } from './types';
 
 export const rules = {
-  isAuthenticated: rule({ cache: 'contextual' })(
-    (_parent, _args, ctx: Context) => {
-      try {
-        if (!ctx.currentUser) {
-          return new AuthenticationError(GraphQLError.AUTHENTICATION.message);
-        }
-        return true;
-      } catch (err) {
-        return err;
+  isAuthenticated: rule({ cache: 'contextual' })((_parent, _args, ctx: Context) => {
+    try {
+      if (!ctx.currentUser) {
+        return new AuthenticationError(GraphQLErrors.AUTHENTICATION.message);
       }
+      return true;
+    } catch (err) {
+      return err;
     }
-  ),
+  }),
   isAdmin: rule({ cache: 'contextual' })((_parent, _args, ctx: Context) => {
     try {
       if (ctx.currentUser?.role !== Role.ADMIN) {
-        return new ForbiddenError(GraphQLError.FORBIDDEN.message);
+        return new ForbiddenError(GraphQLErrors.FORBIDDEN.message);
       }
       return true;
     } catch (err) {

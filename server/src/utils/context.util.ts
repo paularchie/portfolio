@@ -1,6 +1,6 @@
-import { decodeJwt } from "./auth.util";
-import { Context } from "./types";
-import prisma from "../utils/prisma.util";
+import { decodeJwt } from './auth.util';
+import { Context } from './types';
+import prisma from '../utils/prisma.util';
 
 export const createContext = () => {
   return async ({ req, res }): Promise<Context> => {

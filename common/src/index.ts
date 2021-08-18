@@ -1,26 +1,18 @@
-// Re-export stuff from errors and middlewares
-export * from './errors/bad-request-error';
-export * from './errors/custom-error';
-export * from './errors/database-connection-error';
-export * from './errors/not-authorized-error';
-export * from './errors/not-found-error';
-export * from './errors/request-validation-error';
+import { NexusGenEnums, NexusGenInputs, NexusGenObjects } from "./nexus";
+import { GraphQLErrors } from "./constants";
 
-export * from './middlewares/current-user';
-export * from './middlewares/error-handler';
-export * from './middlewares/require-auth';
-export * from './middlewares/validate-request';
+//types
+export type UserSignUpInput = NexusGenInputs["UserSignUpInput"];
+export type UserLoginInput = NexusGenInputs["UserLoginInput"];
+export type UserDeleteInput = NexusGenInputs["UserDeleteInput"];
+export type User = NexusGenObjects["User"];
+export type ValidationError = NexusGenObjects["ValidationError"];
+export type ValidationErrors = NexusGenObjects["ValidationErrors"];
+export type Role = NexusGenEnums["Roles"];
 
-export * from './events/base-listener';
-export * from './events/base-publisher';
-export * from './events/subjects';
-export * from './events/ticket-created-event';
-export * from './events/ticket-updated-event';
-export * from './events/types/order-status';
-export * from './events/order-cancelled-event';
-export * from './events/order-created-event';
-export * from './events/expiration-complete-event';
-export * from './events/payment-created-event';
+export type GraphQLError = typeof GraphQLErrors[keyof typeof GraphQLErrors];
 
-export * from './models/User.model';
-export * from './models/UserCredentials.model';
+import * as models from "./models";
+export const Models = models;
+
+export * from "./constants";

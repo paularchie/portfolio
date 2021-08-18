@@ -1,11 +1,11 @@
-import * as Models from './models';
-import { Mutation } from './Mutations'
-import { Query } from './Queries'
+import { Models } from '@portfolio/common';
+import { Mutation } from './Mutations';
+import { Query } from './Queries';
 
 const types = {
   ...Models,
   Query,
-  Mutation,
-}
+  Mutation
+};
 
 export default types;

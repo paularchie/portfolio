@@ -1,4 +1,4 @@
-import userQueries from "./user.query";
+import userQueries from './user.query';
 
 export default {
   ...userQueries

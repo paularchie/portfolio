@@ -1,13 +1,9 @@
-import { Prisma, Role } from '@prisma/client';
+import { UserSignUpInput, UserDeleteInput, PrismaClient, GraphQLErrors, ValidationError } from '@portfolio/common';
 import { ForbiddenError } from 'apollo-server-express';
 import { objectType, arg, nonNull } from 'nexus';
 import { isAdmin } from '../../utils/auth.util';
-import { GraphQLError } from '../../utils/constants';
 import { hashPassword } from '../../utils/password.util';
-import { ValidationError } from '../../utils/types';
 import { isEmail, validatePassword } from '../../utils/validation.utils';
-
-import {User} from '@portfolio/common';
 
 const UserMutation = objectType({
   name: 'Mutation',
@@ -17,9 +13,9 @@ const UserMutation = objectType({
       args: {
         data: nonNull(arg({ type: 'UserSignUpInput' }))
       },
-      resolve: async (_, { data }, { currentUser, prisma }) => {
-        if (!isAdmin(currentUser) && data.role === Role.ADMIN) {
-          throw new ForbiddenError(GraphQLError.FORBIDDEN.message);
+      resolve: async (_, { data }: { data: UserSignUpInput }, { currentUser, prisma }) => {
+        if (!isAdmin(currentUser) && data.role === 'ADMIN') {
+          throw new ForbiddenError(GraphQLErrors.FORBIDDEN.message);
         }
 
         const errors = await validateSignUpInput(data, prisma);
@@ -50,9 +46,9 @@ const UserMutation = objectType({
       args: {
         data: nonNull(arg({ type: 'UserDeleteInput' }))
       },
-      resolve: async (_, { data }, { currentUser, prisma }) => {
+      resolve: async (_, { data }: { data: UserDeleteInput }, { currentUser, prisma }) => {
         if (currentUser.id !== data.id && !isAdmin(currentUser)) {
-          throw new ForbiddenError(GraphQLError.FORBIDDEN.message);
+          throw new ForbiddenError(GraphQLErrors.FORBIDDEN.message);
         }
         return await prisma.user.delete({
           where: {
@@ -64,8 +60,7 @@ const UserMutation = objectType({
   }
 });
 
-
-async function validateSignUpInput(data, prisma): Promise<ValidationError[]> {
+async function validateSignUpInput(data: UserSignUpInput, prisma: PrismaClient): Promise<ValidationError[]> {
   const errors: ValidationError[] = [];
 
   if (!isEmail(data.email)) {
@@ -76,7 +71,7 @@ async function validateSignUpInput(data, prisma): Promise<ValidationError[]> {
   }
 
   const passwordErrors = validatePassword(data.password);
-  if (passwordErrors) {
+  if (passwordErrors.length) {
     errors.push({
       message: 'Password too weak',
       field: 'password',

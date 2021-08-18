@@ -1,8 +1,8 @@
 import { AuthenticationError } from 'apollo-server-express';
-import { objectType, stringArg, nonNull, arg } from 'nexus';
+import { objectType, nonNull, arg } from 'nexus';
 import { comparePasswords } from '../../utils/password.util';
 import { createSessionToken } from '../../utils/auth.util';
-import { GraphQLError } from '../../utils/constants';
+import { GraphQLErrors, UserLoginInput } from '@portfolio/common';
 
 const UserQuery = objectType({
   name: 'Query',
@@ -12,11 +12,11 @@ const UserQuery = objectType({
       args: {
         data: nonNull(arg({ type: 'UserLoginInput' }))
       },
-      resolve: async (_, { data: { email, password } }, { prisma, res }) => {
+      resolve: async (_, { data: { email, password } }: { data: UserLoginInput }, { prisma, res }) => {
         const user = await prisma.user.findUnique({
           where: { email }
         });
-        
+
         if (user) {
           if (await comparePasswords(user.password, password)) {
             const token = await createSessionToken(user);
@@ -26,9 +26,9 @@ const UserQuery = objectType({
             });
             return user;
           }
-          throw new AuthenticationError(GraphQLError.AUTHENTICATION.message);
+          throw new AuthenticationError(GraphQLErrors.AUTHENTICATION.message);
         }
-        throw new AuthenticationError(GraphQLError.AUTHENTICATION.message);
+        throw new AuthenticationError(GraphQLErrors.AUTHENTICATION.message);
       }
     });
 

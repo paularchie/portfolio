@@ -1,6 +1,6 @@
-import { Button as AntDButton } from "antd";
-import React from "react";
-import clsx from "clsx";
+import AntDButton from 'antd/es/button';
+import React from 'react';
+import clsx from 'clsx';
 
 export type ButtonProps = {
   buttonText: string;
@@ -14,15 +14,15 @@ export type ButtonProps = {
 };
 
 export enum ButtonTypes {
-  Default = "default",
-  Primary = "primary",
-  Text = "text",
-  Link = "link",
-  Dashed = "dashed",
-  Ghost = "ghost"
+  Default = 'default',
+  Primary = 'primary',
+  Text = 'text',
+  Link = 'link',
+  Dashed = 'dashed',
+  Ghost = 'ghost'
 }
 
-export type ButtonHtmlType = "button" | "submit" | "reset";
+export type ButtonHtmlType = 'button' | 'submit' | 'reset';
 
 export const Button = ({
   buttonText,

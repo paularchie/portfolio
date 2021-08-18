@@ -1,15 +1,9 @@
 import { useQuery } from 'react-query';
 import { useRequest } from '../utils/client';
 import queries from '../../graphql/Query';
-import { LoginCredentials } from '../../modules/auth/auth-types';
+import { UserLoginInput, User } from '@portfolio/common';
 
-export type User = {
-  id: string;
-  username: string;
-  email: string;
-};
-
-export const useSignIn = (credentials: LoginCredentials) => {
+export const useSignIn = (credentials: UserLoginInput) => {
   const { request } = useRequest();
   return useQuery<User, Error>(
     'signIn',
