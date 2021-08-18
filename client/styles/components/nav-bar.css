@@ -1,0 +1,9 @@
+.nav-container {
+  & .ant-menu-horizontal {
+    display: flex;
+
+    & .move-right {
+      margin-left: auto;
+    }
+  }
+}
