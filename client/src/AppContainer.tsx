@@ -24,13 +24,19 @@ const AppContainer = ({ children }): JSX.Element => {
   const [currentPath, setCurrentPath] = useState('');
 
   useEffect(() => {
+    const unsubscribe = history.listen(({ pathname }) => {
+      setCurrentPath(pathname);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
     setCurrentPath(history.location.pathname);
   }, [history]);
 
   const handleClick = (url?: string): void => {
     if (url) {
       history.push(url);
-      url && setCurrentPath(url);
     }
   };
 

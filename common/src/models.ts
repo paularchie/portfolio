@@ -49,10 +49,10 @@ export const ValidationError = objectType({
     t.list.string("errorTypes");
   },
 });
-export const ValidationErrors = objectType({
-  name: "ValidationErrors",
+export const ValidationErrorResponse = objectType({
+  name: "ValidationErrorResponse",
   definition(t) {
-    t.nonNull.list.field("errors", {
+    t.nonNull.list.nonNull.field("errors", {
       type: ValidationError,
     });
   },
@@ -61,7 +61,7 @@ export const ValidationErrors = objectType({
 export const SignupResult = unionType({
   name: "SignupResult",
   definition(t) {
-    t.members("User", "ValidationErrors");
+    t.members("User", "ValidationErrorResponse");
   },
   resolveType(t) {
     // @ts-ignore

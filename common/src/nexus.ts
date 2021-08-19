@@ -54,8 +54,8 @@ export interface NexusGenObjects {
     field: string; // String!
     message: string; // String!
   }
-  ValidationErrors: { // root type
-    errors: Array<NexusGenRootTypes['ValidationError'] | null>; // [ValidationError]!
+  ValidationErrorResponse: { // root type
+    errors: NexusGenRootTypes['ValidationError'][]; // [ValidationError!]!
   }
 }
 
@@ -63,7 +63,7 @@ export interface NexusGenInterfaces {
 }
 
 export interface NexusGenUnions {
-  SignupResult: NexusGenRootTypes['User'] | NexusGenRootTypes['ValidationErrors'];
+  SignupResult: NexusGenRootTypes['User'] | NexusGenRootTypes['ValidationErrorResponse'];
 }
 
 export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
@@ -84,8 +84,8 @@ export interface NexusGenFieldTypes {
     field: string; // String!
     message: string; // String!
   }
-  ValidationErrors: { // field return type
-    errors: Array<NexusGenRootTypes['ValidationError'] | null>; // [ValidationError]!
+  ValidationErrorResponse: { // field return type
+    errors: NexusGenRootTypes['ValidationError'][]; // [ValidationError!]!
   }
 }
 
@@ -103,7 +103,7 @@ export interface NexusGenFieldTypeNames {
     field: 'String'
     message: 'String'
   }
-  ValidationErrors: { // field return type name
+  ValidationErrorResponse: { // field return type name
     errors: 'ValidationError'
   }
 }
@@ -112,7 +112,7 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
-  SignupResult: "User" | "ValidationErrors"
+  SignupResult: "User" | "ValidationErrorResponse"
 }
 
 export interface NexusGenTypeInterfaces {

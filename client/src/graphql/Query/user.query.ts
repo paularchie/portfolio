@@ -16,7 +16,7 @@ const signUpMutation = `
                 }   
             }
             ... on User {
-                id
+                    id
             }
         } 
     }

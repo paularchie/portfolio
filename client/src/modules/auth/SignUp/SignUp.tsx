@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, InputTypes } from '../../../common/components/Input/Input';
 import { useHistory } from 'react-router';
 import { useSignUp } from '../../../common/hooks/useSignUp';
-import { UserSignUpInput } from '@portfolio/common';
+import { UserSignUpInput, ValidationError } from '@portfolio/common';
 
 const SignUp = (): JSX.Element => {
   const history = useHistory();
@@ -17,23 +17,21 @@ const SignUp = (): JSX.Element => {
     [key: string]: string;
   }>({});
 
-  const signUp = useSignUp();
-
-  const { data, isLoading } = signUp;
-
-  console.log({ data });
+  const { mutate: signUp, data, isLoading } = useSignUp();
 
   useEffect(() => {
-    if (data?.id) {
-      history.push('/auth/login');
-    }
-    if ((data as any)?.errors) {
-      handleErrors();
+    if (data) {
+      if ('id' in data) {
+        history.push('/login');
+      }
+      if ('errors' in data) {
+        handleErrors(data.errors);
+      }
     }
   }, [data]);
 
-  const handleErrors = () => {
-    const err = (data as any).errors.reduce((acc, { field, message }) => {
+  const handleErrors = (errors: ValidationError[]) => {
+    const err = errors.reduce((acc, { field, message }) => {
       return {
         ...acc,
         [field]: message
@@ -52,7 +50,7 @@ const SignUp = (): JSX.Element => {
 
   const onSubmit = (event: any): void => {
     event.preventDefault();
-    signUp.mutate(credentials);
+    signUp(credentials);
   };
 
   const isButtonDisabled = (): boolean => {
