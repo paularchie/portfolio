@@ -14,7 +14,7 @@
       "noUnusedLocals": false,
       "isolatedModules": true,
       "resolveJsonModule": true,
-      "noEmit": true,
+      "noEmit": false,
       "moduleResolution": "node",
       "strict": true,
       "skipLibCheck": true,

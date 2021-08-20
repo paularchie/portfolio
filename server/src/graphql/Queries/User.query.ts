@@ -1,14 +1,14 @@
-import { AuthenticationError } from 'apollo-server-express';
 import { objectType, nonNull, arg } from 'nexus';
 import { comparePasswords } from '../../utils/password.util';
 import { createSessionToken } from '../../utils/auth.util';
-import { GraphQLErrors, UserLoginInput } from '@portfolio/common';
+import { UserLoginInput } from '@portfolio/common';
+import { authErrorResponse, userResponse } from '../../utils/response.utils';
 
 const UserQuery = objectType({
   name: 'Query',
   definition(t) {
     t.field('login', {
-      type: 'User',
+      type: 'LoginResult',
       args: {
         data: nonNull(arg({ type: 'UserLoginInput' }))
       },
@@ -24,11 +24,11 @@ const UserQuery = objectType({
               httpOnly: true,
               maxAge: 1000 * 60 * 60 * 24 * 365
             });
-            return user;
+            return userResponse(user);
           }
-          throw new AuthenticationError(GraphQLErrors.AUTHENTICATION.message);
+          return authErrorResponse();
         }
-        throw new AuthenticationError(GraphQLErrors.AUTHENTICATION.message);
+        return authErrorResponse();
       }
     });
 

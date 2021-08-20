@@ -2,14 +2,20 @@
 ### Do not make changes to this file directly
 
 
+type AuthenticationError {
+  message: String!
+}
+
+union LoginResult = AuthenticationError | User
+
 type Mutation {
   deleteUser(data: UserDeleteInput!): User
-  signUp(data: UserSignUpInput!): SignupResult
+  signUp(data: UserSignUpInput!): SignUpResult
 }
 
 type Query {
   getUser: User
-  login(data: UserLoginInput!): User
+  login(data: UserLoginInput!): LoginResult
   logout: String
   users: [User]
 }
@@ -19,7 +25,7 @@ enum Roles {
   USER
 }
 
-union SignupResult = User | ValidationErrors
+union SignUpResult = User | ValidationErrorsPayload
 
 type User {
   email: String
@@ -50,6 +56,6 @@ type ValidationError {
   message: String!
 }
 
-type ValidationErrors {
-  errors: [ValidationError]!
+type ValidationErrorsPayload {
+  errors: [ValidationError!]!
 }

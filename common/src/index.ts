@@ -5,7 +5,8 @@ export * from '@prisma/client';
 
 //types
 export type UserSignUpInput = NexusGenInputs["UserSignUpInput"];
-export type SignUpResult = NexusGenUnions["SignupResult"];
+export type SignUpResult = NexusGenUnions["SignUpResult"];
+export type LoginResult = NexusGenUnions["LoginResult"];
 export type UserLoginInput = NexusGenInputs["UserLoginInput"];
 export type UserDeleteInput = NexusGenInputs["UserDeleteInput"];
 export type User = NexusGenObjects["User"];

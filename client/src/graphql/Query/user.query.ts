@@ -1,7 +1,14 @@
 const loginQuery = `
     query($data: UserLoginInput!) { 
         login (data: $data) { 
-            id
+            ... on User {
+                id
+                email
+                role
+              }
+              ... on AuthenticationError {
+                message
+              }
         } 
     }
 `;
@@ -9,14 +16,14 @@ const loginQuery = `
 const signUpMutation = `
     mutation($data: UserSignUpInput!) { 
         signUp (data: $data) { 
-            ...on ValidationErrors {
+            ... on User {
+                    id
+            }
+            ...on ValidationErrorsPayload {
                 errors {
                     message
                     field
                 }   
-            }
-            ... on User {
-                    id
             }
         } 
     }

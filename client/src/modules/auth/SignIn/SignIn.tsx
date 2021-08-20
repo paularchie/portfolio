@@ -13,11 +13,20 @@ const SignIn = (): JSX.Element => {
     password: ''
   });
 
-  const { refetch: signIn, isLoading, error, isSuccess } = useSignIn(credentials);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const { mutate: signIn, data, isLoading } = useSignIn();
 
   useEffect(() => {
-    isSuccess && history.push('/');
-  }, [isSuccess]);
+    if (data) {
+      if ('id' in data) {
+        history.push('/');
+      }
+      if ('message' in data) {
+        setErrorMessage(data.message);
+      }
+    }
+  }, [data]);
 
   const onChange = (value: string, fieldName: string): void => {
     setCredentials({
@@ -28,15 +37,11 @@ const SignIn = (): JSX.Element => {
 
   const onSubmit = (event: any): void => {
     event.preventDefault();
-    signIn();
+    signIn(credentials);
   };
 
   const isButtonDisabled = (): boolean => {
     return !(credentials.email && credentials.password);
-  };
-
-  const getErrorMessage = (): string | null => {
-    return error && error[0]?.message;
   };
 
   return (
@@ -50,7 +55,7 @@ const SignIn = (): JSX.Element => {
             name="email"
             type={InputTypes.Email}
             onChange={onChange}
-            showError={!!getErrorMessage()}
+            showError={!!errorMessage}
           />
           <Input
             id="password"
@@ -58,7 +63,7 @@ const SignIn = (): JSX.Element => {
             name="password"
             type={InputTypes.Password}
             onChange={onChange}
-            errors={getErrorMessage()}
+            errors={errorMessage}
           />
           <Button
             buttonText="Login"

@@ -43,6 +43,9 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthenticationError: { // root type
+    message: string; // String!
+  }
   Mutation: {};
   Query: {};
   User: { // root type
@@ -55,8 +58,8 @@ export interface NexusGenObjects {
     field: string; // String!
     message: string; // String!
   }
-  ValidationErrors: { // root type
-    errors: Array<NexusGenRootTypes['ValidationError'] | null>; // [ValidationError]!
+  ValidationErrorsPayload: { // root type
+    errors: NexusGenRootTypes['ValidationError'][]; // [ValidationError!]!
   }
 }
 
@@ -64,7 +67,8 @@ export interface NexusGenInterfaces {
 }
 
 export interface NexusGenUnions {
-  SignupResult: NexusGenRootTypes['User'] | NexusGenRootTypes['ValidationErrors'];
+  LoginResult: NexusGenRootTypes['AuthenticationError'] | NexusGenRootTypes['User'];
+  SignUpResult: NexusGenRootTypes['User'] | NexusGenRootTypes['ValidationErrorsPayload'];
 }
 
 export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
@@ -72,13 +76,16 @@ export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
+  AuthenticationError: { // field return type
+    message: string; // String!
+  }
   Mutation: { // field return type
     deleteUser: NexusGenRootTypes['User'] | null; // User
-    signUp: NexusGenRootTypes['SignupResult'] | null; // SignupResult
+    signUp: NexusGenRootTypes['SignUpResult'] | null; // SignUpResult
   }
   Query: { // field return type
     getUser: NexusGenRootTypes['User'] | null; // User
-    login: NexusGenRootTypes['User'] | null; // User
+    login: NexusGenRootTypes['LoginResult'] | null; // LoginResult
     logout: string | null; // String
     users: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
@@ -92,19 +99,22 @@ export interface NexusGenFieldTypes {
     field: string; // String!
     message: string; // String!
   }
-  ValidationErrors: { // field return type
-    errors: Array<NexusGenRootTypes['ValidationError'] | null>; // [ValidationError]!
+  ValidationErrorsPayload: { // field return type
+    errors: NexusGenRootTypes['ValidationError'][]; // [ValidationError!]!
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthenticationError: { // field return type name
+    message: 'String'
+  }
   Mutation: { // field return type name
     deleteUser: 'User'
-    signUp: 'SignupResult'
+    signUp: 'SignUpResult'
   }
   Query: { // field return type name
     getUser: 'User'
-    login: 'User'
+    login: 'LoginResult'
     logout: 'String'
     users: 'User'
   }
@@ -118,7 +128,7 @@ export interface NexusGenFieldTypeNames {
     field: 'String'
     message: 'String'
   }
-  ValidationErrors: { // field return type name
+  ValidationErrorsPayload: { // field return type name
     errors: 'ValidationError'
   }
 }
@@ -140,7 +150,8 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
-  SignupResult: "User" | "ValidationErrors"
+  LoginResult: "AuthenticationError" | "User"
+  SignUpResult: "User" | "ValidationErrorsPayload"
 }
 
 export interface NexusGenTypeInterfaces {
@@ -160,7 +171,7 @@ export type NexusGenUnionNames = keyof NexusGenUnions;
 
 export type NexusGenObjectsUsingAbstractStrategyIsTypeOf = never;
 
-export type NexusGenAbstractsUsingStrategyResolveType = "SignupResult";
+export type NexusGenAbstractsUsingStrategyResolveType = "LoginResult" | "SignUpResult";
 
 export type NexusGenFeaturesConfig = {
   abstractTypeStrategies: {

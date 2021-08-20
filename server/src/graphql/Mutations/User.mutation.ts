@@ -3,13 +3,14 @@ import { ForbiddenError } from 'apollo-server-express';
 import { objectType, arg, nonNull } from 'nexus';
 import { isAdmin } from '../../utils/auth.util';
 import { hashPassword } from '../../utils/password.util';
+import { userResponse, validationErrorResponse } from '../../utils/response.utils';
 import { isEmail, validatePassword } from '../../utils/validation.utils';
 
 const UserMutation = objectType({
   name: 'Mutation',
   definition(t) {
     t.field('signUp', {
-      type: 'SignupResult',
+      type: 'SignUpResult',
       args: {
         data: nonNull(arg({ type: 'UserSignUpInput' }))
       },
@@ -21,10 +22,7 @@ const UserMutation = objectType({
         const errors = await validateSignUpInput(data, prisma);
 
         if (errors.length) {
-          return {
-            __typename: 'ValidationErrors',
-            errors
-          };
+          return validationErrorResponse(errors);
         }
 
         const newUser = await prisma.user.create({
@@ -34,10 +32,7 @@ const UserMutation = objectType({
           }
         });
 
-        return {
-          __typename: 'User',
-          ...newUser
-        };
+        return userResponse(newUser);
       }
     });
 
