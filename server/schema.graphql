@@ -40,8 +40,8 @@ input UserDeleteInput {
 }
 
 input UserLoginInput {
-  email: String
-  password: String
+  email: String!
+  password: String!
 }
 
 input UserSignUpInput {

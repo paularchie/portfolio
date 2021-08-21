@@ -1,4 +1,4 @@
 import { TupleUnion } from './types';
-import { GraphQLErrors, User } from '@portfolio/common';
+import { User } from '@portfolio/common/build/types';
 
 export const USER_FIELDS: TupleUnion<keyof User> = ['id', 'email', 'role'];

@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "clean": "del ./build/*",
-    "build": "yarn prisma:push && yarn nexus:generate && tsc",
+    "build": "yarn nexus:generate && tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
     "package": "npm run build && npm pack",
     "nexus:generate": "ts-node src/schema.nexus.ts",

@@ -1,9 +1,10 @@
 import { enumType, inputObjectType, objectType, unionType } from "nexus";
-import { Role } from "@prisma/client";
+
+
 
 export const RolesEnum = enumType({
   name: "Roles",
-  members: [Role.ADMIN, Role.USER],
+  members: ['ADMIN', 'USER'],
 });
 
 export const User = objectType({
@@ -36,8 +37,8 @@ export const UserDeleteInput = inputObjectType({
 export const UserLoginInput = inputObjectType({
   name: "UserLoginInput",
   definition(t) {
-    t.string("email");
-    t.string("password");
+    t.nonNull.string("email");
+    t.nonNull.string("password");
   },
 });
 

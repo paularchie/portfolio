@@ -11,7 +11,7 @@ const client = new GraphQLClient(BASE_URL, {
 export const useRequest = () => {
   const { setError } = useErrorContext();
   return {
-    request: async (a, b) => {
+    request: async (a: any, b: any) => {
       try {
         return await client.request(a, b);
       } catch (err) {

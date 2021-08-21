@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, InputTypes } from '../../../common/components/Input/Input';
 import { useSignIn } from '../../../common/hooks/useSignIn';
 import { useHistory } from 'react-router';
-import { UserLoginInput } from '@portfolio/common';
+import { UserLoginInput } from '@portfolio/common/build/types';
 
 const SignIn = (): JSX.Element => {
   const history = useHistory();
@@ -35,7 +35,7 @@ const SignIn = (): JSX.Element => {
     });
   };
 
-  const onSubmit = (event: any): void => {
+  const onSubmit = (event: any) => {
     event.preventDefault();
     signIn(credentials);
   };

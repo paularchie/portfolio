@@ -20,8 +20,8 @@ export interface NexusGenInputs {
     username?: string | null; // String
   }
   UserLoginInput: { // input type
-    email?: string | null; // String
-    password?: string | null; // String
+    email: string; // String!
+    password: string; // String!
   }
   UserSignUpInput: { // input type
     email: string; // String!

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Input, InputTypes } from '../../../common/components/Input/Input';
 import { useHistory } from 'react-router';
 import { useSignUp } from '../../../common/hooks/useSignUp';
-import { UserSignUpInput, ValidationError } from '@portfolio/common';
+import { UserSignUpInput, ValidationError } from '@portfolio/common/build/types';
 
 const SignUp = (): JSX.Element => {
   const history = useHistory();

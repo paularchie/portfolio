@@ -2,7 +2,7 @@ import { Role } from '@prisma/client';
 import { AuthenticationError, ForbiddenError } from 'apollo-server-errors';
 import { ApolloError } from 'apollo-server-express';
 import { shield, rule } from 'graphql-shield';
-import { GraphQLErrors } from '../../../common/build';
+import { GraphQLErrors } from '@portfolio/common/build/constants';
 import { Context } from './types';
 
 export const rules = {

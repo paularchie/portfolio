@@ -15,7 +15,7 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
     "semi": ["warn", "always"],
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": ["warn", { "endOfLine": "auto" }],
     "no-console": 1,
     "no-loops/no-loops": 1
   },

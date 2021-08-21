@@ -14,7 +14,7 @@
       "noUnusedLocals": false,
       "isolatedModules": true,
       "resolveJsonModule": true,
-      "noEmit": false,
+      "noEmit": true,
       "moduleResolution": "node",
       "strict": true,
       "skipLibCheck": true,
@@ -23,5 +23,5 @@
   },
   "include": [
       "./src/**/*"
-  ],
+  ]
 }

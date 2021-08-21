@@ -46,7 +46,11 @@ const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Ele
           return isVisible(item) && item.items ? (
             <SubMenu title={item.label} {...getItemCommonProps(item)}>
               {item.items.map((subItem: NavItem) => {
-                return isVisible(subItem) && <Menu.Item {...getItemCommonProps(subItem)}>{subItem.label}</Menu.Item>;
+                return (
+                  isVisible(subItem) && (
+                    <Menu.Item {...getItemCommonProps(subItem)}>{subItem.label}</Menu.Item>
+                  )
+                );
               })}
             </SubMenu>
           ) : (

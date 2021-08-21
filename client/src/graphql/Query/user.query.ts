@@ -6,9 +6,9 @@ const loginQuery = `
                 email
                 role
               }
-              ... on AuthenticationError {
+            ... on AuthenticationError {
                 message
-              }
+            }
         } 
     }
 `;
@@ -18,7 +18,7 @@ const signUpMutation = `
         signUp (data: $data) { 
             ... on User {
                     id
-            }
+                }
             ...on ValidationErrorsPayload {
                 errors {
                     message

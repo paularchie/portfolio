@@ -1,8 +1,7 @@
 import { Story } from "@storybook/react/types-6-0";
 import React from "react";
-import { NavBarProps, NavBar } from "../src/common/components/NavBar/NavBar";
+import NavBar, { NavBarProps } from "../src/common/components/NavBar/NavBar";
 import { UserOutlined } from "@ant-design/icons";
-import "../styles/nav-bar.css";
 
 export default {
   component: NavBar,

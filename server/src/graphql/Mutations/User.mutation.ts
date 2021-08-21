@@ -1,10 +1,12 @@
-import { UserSignUpInput, UserDeleteInput, PrismaClient, GraphQLErrors, ValidationError } from '@portfolio/common';
+import { validationErrorResponse, userResponse } from '@portfolio/common/build/response.utils';
+import { UserSignUpInput, UserDeleteInput, ValidationError } from '@portfolio/common/build/types';
+import { GraphQLErrors } from '@portfolio/common/build/constants';
+import { isEmail, validatePassword } from '../../utils/validation.utils';
 import { ForbiddenError } from 'apollo-server-express';
 import { objectType, arg, nonNull } from 'nexus';
 import { isAdmin } from '../../utils/auth.util';
 import { hashPassword } from '../../utils/password.util';
-import { userResponse, validationErrorResponse } from '../../utils/response.utils';
-import { isEmail, validatePassword } from '../../utils/validation.utils';
+import { PrismaClient } from '.prisma/client';
 
 const UserMutation = objectType({
   name: 'Mutation',
