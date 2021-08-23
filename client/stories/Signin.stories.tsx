@@ -16,17 +16,17 @@ const Template = () => (): JSX.Element => {
       <HttpErrorProvider>
         <BrowserRouter>
           <Switch>
-            <Route
-              path="/"
-              exact
-              render={() => <div>Successfully redirected to Home Page</div>}
-            />
+            <Route path="/" exact render={() => <div>Successfully redirected to Home Page</div>} />
             <Route
               path="*"
               render={() => (
                 <div>
-                  <div>email: {authCredentials.EMAIL}</div>
-                  <div>password: {authCredentials.PASSWORD}</div>
+                  <div>
+                    <strong>Email:</strong> {authCredentials.EMAIL}
+                  </div>
+                  <div>
+                    <strong>Password:</strong> {authCredentials.PASSWORD}
+                  </div>
                   <SignIn />
                 </div>
               )}

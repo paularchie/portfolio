@@ -2,7 +2,7 @@ import { objectType, nonNull, arg } from 'nexus';
 import { comparePasswords } from '../../utils/password.util';
 import { createSessionToken } from '../../utils/auth.util';
 import { UserLoginInput } from '@portfolio/common/build/types';
-import { authErrorResponse, userResponse } from '@portfolio/common/build/response.utils';
+import { authErrorResponse, userResponse } from '@portfolio/common/build/utils';
 
 const UserQuery = objectType({
   name: 'Query',

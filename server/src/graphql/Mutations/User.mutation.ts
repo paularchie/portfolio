@@ -1,7 +1,6 @@
-import { validationErrorResponse, userResponse } from '@portfolio/common/build/response.utils';
+import { validationErrorResponse, userResponse, isEmail, validatePassword } from '@portfolio/common/build/utils';
 import { UserSignUpInput, UserDeleteInput, ValidationError } from '@portfolio/common/build/types';
 import { GraphQLErrors } from '@portfolio/common/build/constants';
-import { isEmail, validatePassword } from '../../utils/validation.utils';
 import { ForbiddenError } from 'apollo-server-express';
 import { objectType, arg, nonNull } from 'nexus';
 import { isAdmin } from '../../utils/auth.util';

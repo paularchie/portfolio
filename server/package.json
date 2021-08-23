@@ -74,10 +74,8 @@
     "nexus": "^1.0.0",
     "nexus-plugin-prisma": "^0.35.0",
     "nexus-prisma": "^0.28.0",
-    "password-validator": "^5.1.1",
     "path": "^0.12.7",
     "prettier": "^2.2.1",
-    "validator": "^13.6.0",
     "@portfolio/common": "1.0.0"
   }
 }

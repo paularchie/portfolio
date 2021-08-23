@@ -1,28 +1,11 @@
 /// <reference types="cypress" />
-import React from 'react';
-import { mount } from '@cypress/react';
 import SignIn from './SignIn';
-import MockClientProvider from '../../../__test__/mocks/QueryClientProvider.mock';
 import pageObjects from '../../../__test__/page-objects/global-page-objects';
-import { BrowserRouter } from 'react-router-dom';
-import { HttpErrorProvider } from '../../../common/contexts/HttpErrorContext';
-import {
-  authCredentials,
-  AUTH_ERROR_MESSAGE
-} from '../../../__test__/mocks/constants.mock';
+import { authCredentials, AUTH_ERROR_MESSAGE } from '../../../__test__/mocks/constants.mock';
+import { createIntegrationTestSetup } from '../../../__test__/mocks/setup.mock';
 
 describe('SignInPage', () => {
-  beforeEach(() => {
-    mount(
-      <MockClientProvider>
-        <HttpErrorProvider>
-          <BrowserRouter>
-            <SignIn />
-          </BrowserRouter>
-        </HttpErrorProvider>
-      </MockClientProvider>
-    );
-  });
+  beforeEach(() => createIntegrationTestSetup(SignIn));
 
   it('has the correct input fields and Login button', () => {
     getEmailInput().should('have.attr', 'type', 'email');
@@ -53,7 +36,7 @@ describe('SignInPage', () => {
     cy.get(pageObjects.formErrors).contains(AUTH_ERROR_MESSAGE);
   });
 
-  it.only('redirects a user to the Home page on successful authentication', () => {
+  it('redirects a user to the Home page on successful authentication', () => {
     getEmailInput().type(authCredentials.EMAIL);
     getPasswordInput().type(authCredentials.PASSWORD);
     getLoginButton().click();

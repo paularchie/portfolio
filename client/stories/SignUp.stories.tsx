@@ -1,5 +1,6 @@
 import React from 'react';
 import SignUp from '../src/modules/auth/SignUp/SignUp';
+import SignIn from '../src/modules/auth/SignIn/SignIn';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { HttpErrorProvider } from '../src/common/contexts/HttpErrorContext';
 import MockClientProvider from '../src/__test__/mocks/QueryClientProvider.mock';
@@ -17,11 +18,21 @@ const Template = () => (): JSX.Element => {
         <BrowserRouter>
           <Switch>
             <Route
-              path="/"
+              path="/login"
               exact
-              render={() => <div>Successfully redirected to Home Page</div>}
+              render={() => <div>Successfully redirected to Login Page</div>}
             />
-            <Route path="*" render={() => <SignUp />} />
+            <Route
+              path="*"
+              render={() => (
+                <div>
+                  <div>
+                    <strong>Existing user's email:</strong> {authCredentials.EMAIL}
+                  </div>
+                  <SignUp />
+                </div>
+              )}
+            />
           </Switch>
         </BrowserRouter>
       </HttpErrorProvider>

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { PrismaClient, Role } from '../../../common/build';
+import { PrismaClient } from '@prisma/client';
+import { Role } from '@portfolio/common/build/types';
 
 export interface Context {
   prisma: PrismaClient;

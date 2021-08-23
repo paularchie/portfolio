@@ -1,64 +1,48 @@
 /// <reference types="cypress" />
 import React from 'react';
-import { mount } from '@cypress/react';
 import SignUp from './SignUp';
-import MockClientProvider from '../../../__test__/mocks/QueryClientProvider.mock';
 import pageObjects from '../../../__test__/page-objects/global-page-objects';
-import { BrowserRouter } from 'react-router-dom';
-import { HttpErrorProvider } from '../../../common/contexts/HttpErrorContext';
-import {
-  authCredentials,
-  AUTH_ERROR_MESSAGE
-} from '../../../__test__/mocks/constants.mock';
+import { authCredentials, AUTH_ERROR_MESSAGE, EMAIL_IN_USE_ERROR_MESSAGE } from '../../../__test__/mocks/constants.mock';
+import { createIntegrationTestSetup } from '../../../__test__/mocks/setup.mock';
 
 describe('SignInPage', () => {
-  beforeEach(() => {
-    mount(
-      <MockClientProvider>
-        <HttpErrorProvider>
-          <BrowserRouter>
-            <SignUp />
-          </BrowserRouter>
-        </HttpErrorProvider>
-      </MockClientProvider>
-    );
-  });
+  beforeEach(() => createIntegrationTestSetup(SignUp));
 
-  it('has the correct input fields and Login button', () => {
+  it('has the correct input fields and Sign Up button', () => {
     getEmailInput().should('have.attr', 'type', 'email');
     getPasswordInput().should('have.attr', 'type', 'password');
-    getLoginButton().should('have.attr', 'type', 'submit');
+    getSignUpButton().should('have.attr', 'type', 'submit');
   });
 
   it("button changes 'disabled' state based on the input", () => {
-    getLoginButton().should('have.attr', 'disabled');
+    getSignUpButton().should('have.attr', 'disabled');
 
     getEmailInput().type('a').should('have.value', 'a');
-    getLoginButton().should('have.attr', 'disabled');
+    getSignUpButton().should('have.attr', 'disabled');
 
     getPasswordInput().type('d').should('have.value', 'd');
-    getLoginButton().should('not.have.attr', 'disabled');
+    getSignUpButton().should('not.have.attr', 'disabled');
 
     getPasswordInput().clear();
-    getLoginButton().should('have.attr', 'disabled');
+    getSignUpButton().should('have.attr', 'disabled');
   });
 
-  it('displays an error if incorrect credentials are provided', () => {
-    getEmailInput().type('admin@test.com');
+  it('displays an error if provided email address is in use', () => {
+    getEmailInput().type(authCredentials.EMAIL);
     getPasswordInput().type('password123');
-    getLoginButton().click();
+    getSignUpButton().click();
 
     getEmailInput().should('have.class', 'error-input');
-    getPasswordInput().should('have.class', 'error-input');
-    cy.get(pageObjects.formErrors).contains(AUTH_ERROR_MESSAGE);
+    getPasswordInput().should('not.have.class', 'error-input');
+    cy.get(pageObjects.formErrors).contains(EMAIL_IN_USE_ERROR_MESSAGE);
   });
 
-  it.only('redirects a user to the Home page on successful authentication', () => {
-    getEmailInput().type(authCredentials.EMAIL);
-    getPasswordInput().type(authCredentials.PASSWORD);
-    getLoginButton().click();
+  it('redirects a user to the Login page on successful account creation', () => {
+    getEmailInput().type('test@protonmail.com');
+    getPasswordInput().type('Pdhjh390dd@');
+    getSignUpButton().click();
 
-    cy.location('pathname').should('eq', '/');
+    cy.location('pathname').should('eq', '/login');
   });
 });
 
@@ -70,6 +54,6 @@ function getPasswordInput() {
   return cy.get("input[name='password']");
 }
 
-function getLoginButton() {
+function getSignUpButton() {
   return cy.get('button[type="submit"]');
 }

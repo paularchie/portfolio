@@ -1,8 +1,12 @@
 import { createServer, Model } from 'miragejs';
 import { graphql } from 'graphql';
-import { authCredentials } from './constants.mock';
+import { authCredentials, EMAIL_IN_USE_ERROR_MESSAGE } from './constants.mock';
 import { graphQLSchema } from './schema.mock';
-import { authErrorResponse, userResponse } from '@portfolio/common/build/response.utils';
+import {
+  authErrorResponse,
+  userResponse,
+  validationErrorResponse
+} from '@portfolio/common/build/utils';
 
 const mockServer = (): void => {
   createServer({
@@ -30,6 +34,22 @@ const mockServer = (): void => {
             }
 
             return authErrorResponse();
+          },
+          signUp() {
+            const { email, password } = variables.data;
+
+            if (email === authCredentials.EMAIL) {
+              return validationErrorResponse([
+                {
+                  message: EMAIL_IN_USE_ERROR_MESSAGE,
+                  field: 'email'
+                }
+              ]);
+            }
+
+            return userResponse({
+              id: 'user-id'
+            });
           }
         };
 

@@ -1,4 +1,4 @@
-import { buildSchema } from "graphql";
+import { buildSchema } from 'graphql';
 
 export const graphQLSchema = buildSchema(`
   type User {
@@ -12,14 +12,33 @@ export const graphQLSchema = buildSchema(`
     password: String!
   }
 
+  input UserSignUpInput {
+    email: String!
+    password: String!
+  }
+
   type Query {
     login(data: UserLoginInput!): LoginResult!
+  }
+
+  type Mutation {
+    signUp(data: UserSignUpInput!): SignUpResult!
   }
 
   type AuthenticationError {
     message: String!
   }
 
-  union LoginResult = AuthenticationError | User
+  type ValidationError {
+    errorTypes: [String]
+    field: String!
+    message: String!
+  }
 
+  type ValidationErrorsPayload {
+    errors: [ValidationError!]!
+  }
+
+  union LoginResult = AuthenticationError | User
+  union SignUpResult = ValidationErrorsPayload | User
 `);

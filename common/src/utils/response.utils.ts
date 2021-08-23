@@ -1,5 +1,5 @@
-import { GraphQLErrors } from "./constants";
-import { User, ValidationError } from "./types";
+import { GraphQLErrors } from "../constants";
+import { User, ValidationError } from "../types";
 
 export const authErrorResponse = () => {
   return {
