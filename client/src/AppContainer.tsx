@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useGetCurrentUser } from './common/hooks/useGetCurrentUser';
 import { useErrorContext } from './common/contexts/HttpErrorContext';
+import NavBar, { NavItem } from './common/components/NavBar/NavBar';
+import { useSignOut } from './common/hooks/useLogOut';
 import { UserOutlined } from '@ant-design/icons';
-import { navItems } from './common/utils/constants';
-import NavBar from './common/components/NavBar/NavBar';
 
 //TODO: create Footer component
 const Footer = (): JSX.Element => {
@@ -22,6 +22,47 @@ const AppContainer = ({ children }): JSX.Element => {
   const ctx = useErrorContext();
   const history = useHistory();
   const [currentPath, setCurrentPath] = useState('');
+
+  const { data: user, isFetching } = useGetCurrentUser();
+  const { mutate: signOut } = useSignOut();
+
+  const isLoggedIn = (): boolean => {
+    return !!user && !isFetching;
+  };
+
+  const navItems: NavItem[] = [
+    {
+      url: '/',
+      label: 'Home',
+      key: '/'
+    },
+    {
+      url: '/login',
+      label: 'Login',
+      moveRight: true,
+      key: '/login',
+      show: !isLoggedIn()
+    },
+    {
+      url: '/signup',
+      label: 'Sign up',
+      key: '/signup',
+      show: !isLoggedIn()
+    },
+    {
+      icon: <UserOutlined />,
+      items: [
+        {
+          label: 'Log out',
+          key: 'logout',
+          show: isLoggedIn(),
+          moveRight: true,
+          onClick: signOut
+        }
+      ],
+      key: 'account'
+    }
+  ];
 
   useEffect(() => {
     const unsubscribe = history.listen(({ pathname }) => {

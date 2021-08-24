@@ -25,7 +25,11 @@ export const graphQLSchema = buildSchema(`
     signUp(data: UserSignUpInput!): SignUpResult!
   }
 
-  type AuthenticationError {
+  type AuthenticationErrorResponse {
+    errors: [Error!]!
+  }
+
+  type Error {
     message: String!
   }
 
@@ -35,10 +39,10 @@ export const graphQLSchema = buildSchema(`
     message: String!
   }
 
-  type ValidationErrorsPayload {
+  type ValidationErrorResponse {
     errors: [ValidationError!]!
   }
 
-  union LoginResult = AuthenticationError | User
-  union SignUpResult = ValidationErrorsPayload | User
+  union LoginResult = AuthenticationErrorResponse | User
+  union SignUpResult = ValidationErrorResponse | User
 `);

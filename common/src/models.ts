@@ -51,8 +51,15 @@ export const ValidationError = objectType({
   },
 });
 
-export const ValidationErrorsPayload = objectType({
-  name: "ValidationErrorsPayload",
+export const GenericError = objectType({
+  name: "Error",
+  definition(t) {
+    t.nonNull.string("message");
+  },
+});
+
+export const ValidationErrorResponse = objectType({
+  name: "ValidationErrorResponse",
   definition(t) {
     t.nonNull.list.nonNull.field("errors", {
       type: ValidationError,
@@ -63,7 +70,7 @@ export const ValidationErrorsPayload = objectType({
 export const SignUpResult = unionType({
   name: "SignUpResult",
   definition(t) {
-    t.members("User", "ValidationErrorsPayload");
+    t.members("User", "ValidationErrorResponse");
   },
   resolveType(t) {
     // @ts-ignore
@@ -71,17 +78,19 @@ export const SignUpResult = unionType({
   },
 });
 
-export const AuthenticationError = objectType({
-  name: 'AuthenticationError',
+export const AuthenticationErrorResponse = objectType({
+  name: 'AuthenticationErrorResponse',
   definition(t) {
-    t.nonNull.string('message')
+    t.nonNull.list.nonNull.field("errors", {
+      type: GenericError,
+    });
   },
 })
 
 export const LoginResult = unionType({
   name: "LoginResult",
   definition(t) {
-    t.members("User", "AuthenticationError");
+    t.members("User", "AuthenticationErrorResponse");
   },
   resolveType(t) {
     // @ts-ignore

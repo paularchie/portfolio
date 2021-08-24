@@ -22,8 +22,8 @@ const SignIn = (): JSX.Element => {
       if ('id' in data) {
         history.push('/');
       }
-      if ('message' in data) {
-        setErrorMessage(data.message);
+      if ('errors' in data) {
+        setErrorMessage(data.errors[0].message);
       }
     }
   }, [data]);

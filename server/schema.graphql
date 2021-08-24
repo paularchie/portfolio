@@ -2,11 +2,15 @@
 ### Do not make changes to this file directly
 
 
-type AuthenticationError {
+type AuthenticationErrorResponse {
+  errors: [Error!]!
+}
+
+type Error {
   message: String!
 }
 
-union LoginResult = AuthenticationError | User
+union LoginResult = AuthenticationErrorResponse | User
 
 type Mutation {
   deleteUser(data: UserDeleteInput!): User
@@ -25,7 +29,7 @@ enum Roles {
   USER
 }
 
-union SignUpResult = User | ValidationErrorsPayload
+union SignUpResult = User | ValidationErrorResponse
 
 type User {
   email: String
@@ -56,6 +60,6 @@ type ValidationError {
   message: String!
 }
 
-type ValidationErrorsPayload {
+type ValidationErrorResponse {
   errors: [ValidationError!]!
 }

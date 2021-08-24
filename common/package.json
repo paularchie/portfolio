@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/validator": "^13.6.3",
     "del-cli": "^3.0.0",
     "nexus": "^1.1.0",
     "prisma": "^2.28.0",

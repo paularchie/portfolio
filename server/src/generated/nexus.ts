@@ -43,7 +43,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  AuthenticationError: { // root type
+  AuthenticationErrorResponse: { // root type
+    errors: NexusGenRootTypes['Error'][]; // [Error!]!
+  }
+  Error: { // root type
     message: string; // String!
   }
   Mutation: {};
@@ -58,7 +61,7 @@ export interface NexusGenObjects {
     field: string; // String!
     message: string; // String!
   }
-  ValidationErrorsPayload: { // root type
+  ValidationErrorResponse: { // root type
     errors: NexusGenRootTypes['ValidationError'][]; // [ValidationError!]!
   }
 }
@@ -67,8 +70,8 @@ export interface NexusGenInterfaces {
 }
 
 export interface NexusGenUnions {
-  LoginResult: NexusGenRootTypes['AuthenticationError'] | NexusGenRootTypes['User'];
-  SignUpResult: NexusGenRootTypes['User'] | NexusGenRootTypes['ValidationErrorsPayload'];
+  LoginResult: NexusGenRootTypes['AuthenticationErrorResponse'] | NexusGenRootTypes['User'];
+  SignUpResult: NexusGenRootTypes['User'] | NexusGenRootTypes['ValidationErrorResponse'];
 }
 
 export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
@@ -76,7 +79,10 @@ export type NexusGenRootTypes = NexusGenObjects & NexusGenUnions
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars & NexusGenEnums
 
 export interface NexusGenFieldTypes {
-  AuthenticationError: { // field return type
+  AuthenticationErrorResponse: { // field return type
+    errors: NexusGenRootTypes['Error'][]; // [Error!]!
+  }
+  Error: { // field return type
     message: string; // String!
   }
   Mutation: { // field return type
@@ -99,13 +105,16 @@ export interface NexusGenFieldTypes {
     field: string; // String!
     message: string; // String!
   }
-  ValidationErrorsPayload: { // field return type
+  ValidationErrorResponse: { // field return type
     errors: NexusGenRootTypes['ValidationError'][]; // [ValidationError!]!
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  AuthenticationError: { // field return type name
+  AuthenticationErrorResponse: { // field return type name
+    errors: 'Error'
+  }
+  Error: { // field return type name
     message: 'String'
   }
   Mutation: { // field return type name
@@ -128,7 +137,7 @@ export interface NexusGenFieldTypeNames {
     field: 'String'
     message: 'String'
   }
-  ValidationErrorsPayload: { // field return type name
+  ValidationErrorResponse: { // field return type name
     errors: 'ValidationError'
   }
 }
@@ -150,8 +159,8 @@ export interface NexusGenArgTypes {
 }
 
 export interface NexusGenAbstractTypeMembers {
-  LoginResult: "AuthenticationError" | "User"
-  SignUpResult: "User" | "ValidationErrorsPayload"
+  LoginResult: "AuthenticationErrorResponse" | "User"
+  SignUpResult: "User" | "ValidationErrorResponse"
 }
 
 export interface NexusGenTypeInterfaces {

@@ -36,7 +36,7 @@ const mockServer = (): void => {
             return authErrorResponse();
           },
           signUp() {
-            const { email, password } = variables.data;
+            const { email } = variables.data;
 
             if (email === authCredentials.EMAIL) {
               return validationErrorResponse([
@@ -48,7 +48,8 @@ const mockServer = (): void => {
             }
 
             return userResponse({
-              id: 'user-id'
+              id: 'user-id',
+              email
             });
           }
         };

@@ -12,6 +12,7 @@ export type NavItem = {
   key: string;
   selected?: boolean;
   show?: boolean;
+  onClick?: () => void;
 };
 
 export type MenuMode = 'horizontal' | 'vertical' | 'inline';
@@ -30,7 +31,12 @@ const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Ele
         className: clsx({ 'move-right': item.moveRight }),
         key: item.key,
         icon: item.icon,
-        onClick: () => onClick(item.url)
+        onClick: () => {
+          if (item.onClick) {
+            return item.onClick();
+          }
+          onClick(item.url);
+        }
       }
     );
   };

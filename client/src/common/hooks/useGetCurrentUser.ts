@@ -1,10 +1,11 @@
 import { useQuery } from 'react-query';
 import client from '../utils/client';
-import queries from '../../graphql/Query';
+import { getUserQuery } from '@portfolio/common/build/graphql/queries';
+import { User } from '@portfolio/common/build/types';
 
 export const useGetCurrentUser = () => {
-  return useQuery<any, any>('getCurrentUser', async () => {
-    const res = await client.request(queries.getUserQuery);
+  return useQuery('getCurrentUser', async (): Promise<User> => {
+    const res = await client.request(getUserQuery);
     return res.getUser;
   });
 };

@@ -1,9 +1,6 @@
-import { GraphQLError } from '../src/utils/types';
+import { GraphQLError } from '@portfolio/common/build/types';
 
-export const returnsError = async (
-  callback: () => Promise<void>,
-  error: GraphQLError
-) => {
+export const returnsError = async (callback: () => Promise<void>, error: GraphQLError) => {
   try {
     await callback();
     throw new Error('should not reach this line');

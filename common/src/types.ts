@@ -16,3 +16,9 @@ export type UserDeleteInput = NexusGenInputs["UserDeleteInput"];
 export type User = NexusGenObjects["User"];
 export type ValidationError = NexusGenObjects["ValidationError"];
 export type Role = NexusGenEnums["Roles"];
+
+export type TupleUnion<U extends string, R extends string[] = []> = {
+  [S in U]: Exclude<U, S> extends never ? [...R, S] : TupleUnion<Exclude<U, S>, [...R, S]>;
+}[U] &
+  string[];
+

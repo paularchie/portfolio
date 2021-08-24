@@ -3,14 +3,18 @@ import { User, ValidationError } from "../types";
 
 export const authErrorResponse = () => {
   return {
-    __typename: "AuthenticationError",
-    message: GraphQLErrors.AUTHENTICATION.message,
+    __typename: "AuthenticationErrorResponse",
+    errors: [
+      {
+        message: GraphQLErrors.AUTHENTICATION.message,
+      },
+    ],
   };
 };
 
 export const validationErrorResponse = (errors: ValidationError[]) => {
   return {
-    __typename: "ValidationErrorsPayload",
+    __typename: "ValidationErrorResponse",
     errors,
   };
 };

@@ -1,3 +1,5 @@
+import { TupleUnion, User } from "./types";
+
 export const GraphQLErrors = {
   FORBIDDEN: {
     message: "Unauthorized",
@@ -8,3 +10,7 @@ export const GraphQLErrors = {
     code: "UNAUTHENTICATED",
   },
 };
+
+
+
+export const USER_FIELDS: TupleUnion<keyof User> = ['id', 'email', 'role'];

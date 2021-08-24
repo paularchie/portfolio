@@ -5,7 +5,8 @@ import { ForbiddenError } from 'apollo-server-express';
 import { objectType, arg, nonNull } from 'nexus';
 import { isAdmin } from '../../utils/auth.util';
 import { hashPassword } from '../../utils/password.util';
-import { PrismaClient } from '.prisma/client';
+import { validateSignUpInput } from '../../utils/validators.util';
+
 
 const UserMutation = objectType({
   name: 'Mutation',
@@ -20,7 +21,11 @@ const UserMutation = objectType({
           throw new ForbiddenError(GraphQLErrors.FORBIDDEN.message);
         }
 
-        const errors = await validateSignUpInput(data, prisma);
+        const existingUser = await prisma.user.findUnique({
+          where: { email: data.email }
+        });
+
+        const errors = await validateSignUpInput(data, existingUser);
 
         if (errors.length) {
           return validationErrorResponse(errors);
@@ -55,38 +60,5 @@ const UserMutation = objectType({
     });
   }
 });
-
-async function validateSignUpInput(data: UserSignUpInput, prisma: PrismaClient): Promise<ValidationError[]> {
-  const errors: ValidationError[] = [];
-
-  if (!isEmail(data.email)) {
-    errors.push({
-      message: 'Invalid email address',
-      field: 'email'
-    });
-  }
-
-  const passwordErrors = validatePassword(data.password);
-  if (passwordErrors.length) {
-    errors.push({
-      message: 'Password too weak',
-      field: 'password',
-      errorTypes: passwordErrors
-    });
-  }
-
-  const existingUser = await prisma.user.findUnique({
-    where: { email: data.email }
-  });
-
-  if (existingUser) {
-    errors.push({
-      message: 'Email already in use',
-      field: 'email'
-    });
-  }
-
-  return errors;
-}
 
 export default UserMutation;
