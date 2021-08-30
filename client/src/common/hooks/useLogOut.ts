@@ -6,7 +6,6 @@ export const useSignOut = () => {
   const { request } = useRequest();
   return useMutation(async () => {
     const res = await request(logoutQuery);
-    console.log({res})
     return res.logout;
   });
 };

@@ -4,6 +4,8 @@ import { Input, InputTypes } from '../../../common/components/Input/Input';
 import { useSignIn } from '../../../common/hooks/useSignIn';
 import { useHistory } from 'react-router';
 import { UserLoginInput } from '@portfolio/common/build/types';
+import { useQueryClient } from 'react-query';
+import { CURRENT_USER } from '../../../common/utils/query-keys';
 
 const SignIn = (): JSX.Element => {
   const history = useHistory();
@@ -12,6 +14,7 @@ const SignIn = (): JSX.Element => {
     email: '',
     password: ''
   });
+  const queryClient = useQueryClient();
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -21,6 +24,7 @@ const SignIn = (): JSX.Element => {
     if (data) {
       if ('id' in data) {
         history.push('/');
+        queryClient.invalidateQueries(CURRENT_USER);
       }
       if ('errors' in data) {
         setErrorMessage(data.errors[0].message);
