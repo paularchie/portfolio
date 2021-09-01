@@ -24,21 +24,30 @@ export type NavBarProps = {
   selectedKeys: string[];
 };
 
+export type MenuItemProps = {
+  key: string;
+  className?: string;
+  icon?: JSX.Element;
+  onClick?: () => void;
+};
+
 const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Element => {
-  const getItemCommonProps = (item: NavItem) => {
-    return (
-      item.show !== false && {
-        className: clsx({ 'move-right': item.moveRight }),
-        key: item.key,
-        icon: item.icon,
-        onClick: () => {
-          if (item.onClick) {
-            return item.onClick();
-          }
-          onClick(item.url);
-        }
-      }
-    );
+  const getMenuItemProps = (item: NavItem): MenuItemProps => {
+    return {
+      className: clsx({ 'move-right': item.moveRight }),
+      key: item.key,
+      icon: item.icon,
+      onClick: () => handleClick(item)
+    };
+  };
+
+  const handleClick = (item: NavItem): void => {
+    if (item.onClick) {
+      return item.onClick();
+    }
+    if (onClick) {
+      onClick(item.url);
+    }
   };
 
   const isVisible = (item: NavItem): boolean => {
@@ -47,20 +56,30 @@ const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Ele
 
   return (
     <nav className="nav-container">
-      <Menu mode={mode || 'horizontal'} selectedKeys={selectedKeys}>
+      <Menu mode={mode || 'horizontal'} selectedKeys={selectedKeys} data-cy="nav-bar">
         {navItems.map((item: NavItem) => {
           return isVisible(item) && item.items ? (
-            <SubMenu title={item.label} {...getItemCommonProps(item)}>
+            <SubMenu title={item.label} {...getMenuItemProps(item)}>
               {item.items.map((subItem: NavItem) => {
                 return (
                   isVisible(subItem) && (
-                    <Menu.Item {...getItemCommonProps(subItem)}>{subItem.label}</Menu.Item>
+                    <Menu.Item {...getMenuItemProps(subItem)}>
+                      <a href={subItem.url} onClick={(e: React.UIEvent) => e.preventDefault()}>
+                        {subItem.label}
+                      </a>
+                    </Menu.Item>
                   )
                 );
               })}
             </SubMenu>
           ) : (
-            isVisible(item) && <Menu.Item {...getItemCommonProps(item)}>{item.label}</Menu.Item>
+            isVisible(item) && (
+              <Menu.Item {...getMenuItemProps(item)}>
+                <a href={item.url} onClick={(e: React.UIEvent) => e.preventDefault()}>
+                  {item.label}
+                </a>
+              </Menu.Item>
+            )
           );
         })}
       </Menu>

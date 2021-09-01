@@ -1,11 +1,11 @@
-import { Story } from "@storybook/react/types-6-0";
-import React from "react";
-import NavBar, { NavBarProps } from "../src/common/components/NavBar/NavBar";
-import { UserOutlined } from "@ant-design/icons";
+import { Story } from '@storybook/react/types-6-0';
+import React from 'react';
+import NavBar, { NavBarProps } from '../src/common/components/NavBar/NavBar';
+import { UserOutlined } from '@ant-design/icons';
 
 export default {
   component: NavBar,
-  title: "NavBar"
+  title: 'NavBar'
 };
 
 const Template: Story<NavBarProps> = (args) => <NavBar {...args} />;
@@ -14,39 +14,31 @@ export const Default = Template.bind({});
 Default.args = {
   navItems: [
     {
-      url: "/",
-      label: "Home"
+      url: '/',
+      label: 'Home',
+      key: 'home'
     },
     {
-      icon: <UserOutlined />
+      url: '/login',
+      label: 'Log In',
+      key: 'login',
+      moveRight: true
     },
     {
-      url: "/login",
-      label: "Login"
+      url: '/signup',
+      label: 'Sign Up',
+      key: 'signup'
     },
     {
-      url: "/signup",
-      label: "Sign up"
-    },
-    {
-      url: "/products",
-      // label: "Products",
-      moveRight: true,
       icon: <UserOutlined />,
+      key: 'account',
       items: [
         {
-          url: "/product1",
-          label: "Product1"
-        },
-        {
-          url: "/product2",
-          label: "Product2"
-        },
-        {
-          url: "/product3",
-          label: "Product3"
+          label: 'Log Out',
+          key: 'logout'
         }
       ]
     }
-  ]
+  ],
+  selectedKeys: ['home']
 };

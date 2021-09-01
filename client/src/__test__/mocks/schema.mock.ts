@@ -19,6 +19,8 @@ export const graphQLSchema = buildSchema(`
 
   type Query {
     login(data: UserLoginInput!): LoginResult!
+    getUser: User
+    logout: String
   }
 
   type Mutation {

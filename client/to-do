@@ -1,8 +1,11 @@
 add new fields - textarea, dropdown
 client-side form validation
 consider creating reusable form component
+notification banner
+error handler (display error banner)
+tidy up types
+
 
 admin portal 
   - display users in the table and implement crud
-error handler (display error banner)
 

@@ -7,8 +7,9 @@ import {
   userResponse,
   validationErrorResponse
 } from '@portfolio/common/build/utils';
+import { User } from '@portfolio/common/build/types';
 
-const mockServer = (): void => {
+const mockServer = (user: User | null): void => {
   createServer({
     models: {
       user: Model
@@ -51,6 +52,12 @@ const mockServer = (): void => {
               id: 'user-id',
               email
             });
+          },
+          getUser() {
+            return user;
+          },
+          logout() {
+            return 'user-id'
           }
         };
 
