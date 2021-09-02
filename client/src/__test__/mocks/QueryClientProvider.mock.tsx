@@ -12,7 +12,7 @@ const MockClientProvider = ({
   user?: User;
   children: JSX.Element;
 }): JSX.Element => {
-  // mockServer(user);
+  mockServer(user);
   return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
 };
 

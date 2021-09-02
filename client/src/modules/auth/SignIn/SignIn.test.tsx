@@ -3,6 +3,8 @@ import SignIn from './SignIn';
 import pageObjects from '../../../__test__/page-objects/global-page-objects';
 import { authCredentials, AUTH_ERROR_MESSAGE } from '../../../__test__/mocks/constants.mock';
 import { createIntegrationTestSetup } from '../../../__test__/mocks/setup.mock';
+import client from '../../../common/utils/client';
+import { loginQuery } from '../../../../../common/build/graphql/queries';
 
 describe('SignInPage', () => {
   beforeEach(() => createIntegrationTestSetup(SignIn));
@@ -24,6 +26,22 @@ describe('SignInPage', () => {
 
     getPasswordInput().clear();
     getLoginButton().should('have.attr', 'disabled');
+  });
+
+  it('calls the API with a correct payload on the form submission', () => {
+    const email = 'test@protonmail.com';
+    const password = 'Pdhjh390dd@';
+    cy.spy(client, 'request');
+
+    getEmailInput().type(email);
+    getPasswordInput().type(password);
+    getLoginButton()
+      .click()
+      .then(() => {
+        expect(client.request).to.have.been.calledWith(loginQuery, {
+          data: { email, password }
+        });
+      });
   });
 
   it('displays an error if incorrect credentials are provided', () => {

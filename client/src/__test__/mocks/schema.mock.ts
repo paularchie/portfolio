@@ -19,8 +19,8 @@ export const graphQLSchema = buildSchema(`
 
   type Query {
     login(data: UserLoginInput!): LoginResult!
-    getUser: User
     logout: String
+    getUser: User
   }
 
   type Mutation {
@@ -36,9 +36,9 @@ export const graphQLSchema = buildSchema(`
   }
 
   type ValidationError {
-    errorTypes: [String]
     field: String!
     message: String!
+    errorTypes: [String]
   }
 
   type ValidationErrorResponse {

@@ -9,7 +9,7 @@ import {
 } from '@portfolio/common/build/utils';
 import { User } from '@portfolio/common/build/types';
 
-const mockServer = (user: User | null): void => {
+const mockServer = (user?: User): void => {
   createServer({
     models: {
       user: Model

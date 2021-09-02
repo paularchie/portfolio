@@ -13,6 +13,7 @@ export type NavItem = {
   selected?: boolean;
   show?: boolean;
   onClick?: () => void;
+  attrs?: {}
 };
 
 export type MenuMode = 'horizontal' | 'vertical' | 'inline';
@@ -59,11 +60,11 @@ const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Ele
       <Menu mode={mode || 'horizontal'} selectedKeys={selectedKeys} data-cy="nav-bar">
         {navItems.map((item: NavItem) => {
           return isVisible(item) && item.items ? (
-            <SubMenu title={item.label} {...getMenuItemProps(item)}>
+            <SubMenu title={item.label} {...getMenuItemProps(item)} {...item.attrs}>
               {item.items.map((subItem: NavItem) => {
                 return (
                   isVisible(subItem) && (
-                    <Menu.Item {...getMenuItemProps(subItem)}>
+                    <Menu.Item {...getMenuItemProps(subItem)} {...item.attrs}>
                       <a href={subItem.url} onClick={(e: React.UIEvent) => e.preventDefault()}>
                         {subItem.label}
                       </a>
@@ -74,7 +75,7 @@ const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Ele
             </SubMenu>
           ) : (
             isVisible(item) && (
-              <Menu.Item {...getMenuItemProps(item)}>
+              <Menu.Item {...getMenuItemProps(item)} {...item.attrs}>
                 <a href={item.url} onClick={(e: React.UIEvent) => e.preventDefault()}>
                   {item.label}
                 </a>

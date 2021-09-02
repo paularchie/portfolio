@@ -47,7 +47,7 @@ export const useNav = (
     },
     {
       url: '/login',
-      label: 'Login',
+      label: 'Log in',
       moveRight: true,
       key: '/login',
       show: !isFetching && !isLoggedIn
@@ -69,7 +69,8 @@ export const useNav = (
         }
       ],
       key: 'account',
-      show: !isFetching && isLoggedIn
+      show: !isFetching && isLoggedIn,
+      attrs: { 'data-cy': 'user-icon' }
     }
   ];
 

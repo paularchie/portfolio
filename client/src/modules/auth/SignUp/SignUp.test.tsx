@@ -1,9 +1,13 @@
 /// <reference types="cypress" />
-import React from 'react';
 import SignUp from './SignUp';
 import pageObjects from '../../../__test__/page-objects/global-page-objects';
-import { authCredentials, AUTH_ERROR_MESSAGE, EMAIL_IN_USE_ERROR_MESSAGE } from '../../../__test__/mocks/constants.mock';
+import {
+  authCredentials,
+  EMAIL_IN_USE_ERROR_MESSAGE
+} from '../../../__test__/mocks/constants.mock';
 import { createIntegrationTestSetup } from '../../../__test__/mocks/setup.mock';
+import client from '../../../common/utils/client';
+import { signUpMutation } from '../../../../../common/build/graphql/mutations';
 
 describe('SignInPage', () => {
   beforeEach(() => createIntegrationTestSetup(SignUp));
@@ -25,6 +29,22 @@ describe('SignInPage', () => {
 
     getPasswordInput().clear();
     getSignUpButton().should('have.attr', 'disabled');
+  });
+
+  it('calls the API with a correct payload on the form submission', () => {
+    const email = 'test@protonmail.com';
+    const password = 'Pdhjh390dd@';
+    cy.spy(client, 'request');
+
+    getEmailInput().type(email);
+    getPasswordInput().type(password);
+    getSignUpButton()
+      .click()
+      .then(() => {
+        expect(client.request).to.have.been.calledWith(signUpMutation, {
+          data: { email, password }
+        });
+      });
   });
 
   it('displays an error if provided email address is in use', () => {

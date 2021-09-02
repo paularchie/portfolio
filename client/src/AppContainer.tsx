@@ -4,6 +4,7 @@ import { useErrorContext } from './common/contexts/HttpErrorContext';
 import NavBar from './common/components/NavBar/NavBar';
 import { useNav } from './common/hooks/useNav';
 import { useSignOut } from './common/hooks/useLogOut';
+import Routes from './Routes';
 
 //TODO: create Footer component
 const Footer = (): JSX.Element => {
@@ -17,7 +18,7 @@ const Footer = (): JSX.Element => {
   );
 };
 
-const AppContainer = ({ children }): JSX.Element => {
+const AppContainer = (): JSX.Element => {
   const ctx = useErrorContext();
   const { data: user, isFetching } = useGetCurrentUser();
   const { mutate: signOut, data: isSignedOut } = useSignOut();
@@ -36,7 +37,9 @@ const AppContainer = ({ children }): JSX.Element => {
   return (
     <div className="flex flex-col h-full">
       <NavBar navItems={navItems} onClick={handleNavItemClick} selectedKeys={[currentPath]} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1">
+        <Routes />
+      </main>
       <Footer />
       {/* <ReactQueryDevtools /> */}
     </div>
