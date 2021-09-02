@@ -39,7 +39,7 @@ const SignIn = (): JSX.Element => {
     });
   };
 
-  const onSubmit = (event: any) => {
+  const onSubmit = (event: React.FormEvent): void => {
     event.preventDefault();
     signIn(credentials);
   };

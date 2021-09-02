@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
 import clsx from 'clsx';
+import { ClickHandler } from '../../hooks/useNav';
 
 export type NavItem = {
   url?: string;
@@ -12,8 +13,8 @@ export type NavItem = {
   key: string;
   selected?: boolean;
   show?: boolean;
-  onClick?: () => void;
-  attrs?: {}
+  onClick?: ClickHandler;
+  attrs?: { [key: string]: string | number | boolean };
 };
 
 export type MenuMode = 'horizontal' | 'vertical' | 'inline';
@@ -44,7 +45,7 @@ const NavBar = ({ navItems, mode, onClick, selectedKeys }: NavBarProps): JSX.Ele
 
   const handleClick = (item: NavItem): void => {
     if (item.onClick) {
-      return item.onClick();
+      return item.onClick(null);
     }
     if (onClick) {
       onClick(item.url);

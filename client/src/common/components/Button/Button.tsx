@@ -5,7 +5,7 @@ import clsx from 'clsx';
 export type ButtonProps = {
   buttonText: string;
   buttonType?: ButtonTypes;
-  onClick?: (event: any) => void | Promise<void>;
+  onClick?: () => void | Promise<void>;
   className?: string;
   disabled?: boolean;
   loading?: boolean;

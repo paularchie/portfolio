@@ -18,16 +18,16 @@ export const initialState: HttpError = {
 };
 
 type HttpErrorContext = {
-  error: HttpError;
+  error: HttpError | null;
   setError: Dispatch<SetStateAction<HttpError>>;
 };
 
-const ErrorContext = createContext<HttpErrorContext | null>(null);
+const ErrorContext = createContext<HttpErrorContext>({ error: null, setError: () => {} });
 
-export function HttpErrorProvider({ children }) {
+export function HttpErrorProvider({ children }: { children: JSX.Element }): JSX.Element {
   const [error, setError] = useState(initialState);
   const ctx = useMemo(() => ({ error, setError }), [error]);
   return <ErrorContext.Provider value={ctx}>{children}</ErrorContext.Provider>;
 }
 
-export const useErrorContext = () => useContext(ErrorContext)!;
+export const useErrorContext = (): HttpErrorContext => useContext(ErrorContext);

@@ -5,19 +5,17 @@
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "react-hooks", "no-loops", "prettier"],
-  "extends": [
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
+  "extends": ["plugin:react/recommended", "plugin:@typescript-eslint/recommended", "prettier"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
     "react/prop-types": "off",
     "semi": ["warn", "always"],
     "prettier/prettier": ["warn", { "endOfLine": "auto" }],
     "no-console": 1,
-    "no-loops/no-loops": 1
+    "no-loops/no-loops": 1,
+    "@typescript-eslint/no-empty-function": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "react-hooks/exhaustive-deps": 0
   },
   "settings": {
     "react": {

@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
+import { RequestDocument } from 'graphql-request/dist/types';
 import { useErrorContext } from '../contexts/HttpErrorContext';
 
 export const BASE_URL = `http://localhost:4000/graphql`;
@@ -11,9 +12,9 @@ const client = new GraphQLClient(BASE_URL, {
 export const useRequest = () => {
   const { setError } = useErrorContext();
   return {
-    request: async (a: any, b?: any) => {
+    request: async (queryOrMutation: RequestDocument, variables?: unknown) => {
       try {
-        return await client.request(a, b);
+        return await client.request(queryOrMutation, variables);
       } catch (err) {
         if (err.response.errors[0]?.message) {
           throw [{ message: err.response.errors[0].message }];

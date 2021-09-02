@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { UseMutateFunction, useQueryClient } from 'react-query';
 import { useHistory } from 'react-router';
 import { UserOutlined } from '@ant-design/icons';
 import { NavItem } from '../components/NavBar/NavBar';
 import { CURRENT_USER } from '../utils/query-keys';
 
+export type ClickHandler = UseMutateFunction<unknown, unknown, unknown, unknown> | (() => void);
+
 export const useNav = (
   isFetching: boolean,
   isLoggedIn: boolean,
-  onSignOut: () => void,
-  isSignedOut
-) => {
+  onSignOut: ClickHandler,
+  isSignedOut: boolean
+): { navItems: NavItem[]; handleNavItemClick: ClickHandler; currentPath: string } => {
   const history = useHistory();
   const queryClient = useQueryClient();
 

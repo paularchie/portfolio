@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useGetCurrentUser } from './common/hooks/useGetCurrentUser';
-import { useErrorContext } from './common/contexts/HttpErrorContext';
+// import { useErrorContext } from './common/contexts/HttpErrorContext';
 import NavBar from './common/components/NavBar/NavBar';
 import { useNav } from './common/hooks/useNav';
 import { useSignOut } from './common/hooks/useLogOut';
@@ -18,21 +18,19 @@ const Footer = (): JSX.Element => {
   );
 };
 
-const AppContainer = (): JSX.Element => {
-  const ctx = useErrorContext();
+const Main = (): JSX.Element => {
+  // const ctx = useErrorContext();
   const { data: user, isFetching } = useGetCurrentUser();
   const { mutate: signOut, data: isSignedOut } = useSignOut();
   const { navItems, handleNavItemClick, currentPath } = useNav(
     isFetching,
     !!user,
     signOut,
-    isSignedOut
+    !!isSignedOut
   );
 
   //TODO: implement error notification banner
-  useEffect(() => {
-    console.log('!!!!', ctx.error);
-  }, [ctx.error]);
+  // useEffect(() => {}, [ctx.error]);
 
   return (
     <div className="flex flex-col h-full">
@@ -46,4 +44,4 @@ const AppContainer = (): JSX.Element => {
   );
 };
 
-export default AppContainer;
+export default Main;

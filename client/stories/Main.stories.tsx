@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import AppContainer from '../src/AppContainer';
+import Main from '../src/Main';
 import { HttpErrorProvider } from '../src/common/contexts/HttpErrorContext';
 import MockClientProvider from '../src/__test__/mocks/QueryClientProvider.mock';
 
@@ -13,7 +13,7 @@ const NoUserTemplate = (): JSX.Element => {
     <MockClientProvider>
       <HttpErrorProvider>
         <BrowserRouter>
-          <AppContainer />
+          <Main />
         </BrowserRouter>
       </HttpErrorProvider>
     </MockClientProvider>
@@ -27,7 +27,7 @@ const WithUserTemplate = (): JSX.Element => {
     <MockClientProvider user={{ id: 'user-id', email: 'user@test.com' }}>
       <HttpErrorProvider>
         <BrowserRouter>
-          <AppContainer />
+          <Main />
         </BrowserRouter>
       </HttpErrorProvider>
     </MockClientProvider>

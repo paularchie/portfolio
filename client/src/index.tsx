@@ -1,10 +1,9 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppContainer from './AppContainer';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Main from './Main';
+import { BrowserRouter } from 'react-router-dom';
 import { HttpErrorProvider } from './common/contexts/HttpErrorContext';
-import Routes from './Routes';
 
 const queryClient = new QueryClient();
 
@@ -13,7 +12,7 @@ function App(): JSX.Element {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <HttpErrorProvider>
-          <AppContainer />
+          <Main />
         </HttpErrorProvider>
       </BrowserRouter>
     </QueryClientProvider>

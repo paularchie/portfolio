@@ -4,9 +4,5 @@ consider creating reusable form component
 notification banner
 error handler (display error banner)
 tidy up types
-rename AppContainer to Main
 
-
-admin portal 
-  - display users in the table and implement crud
 

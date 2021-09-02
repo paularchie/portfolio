@@ -3,11 +3,11 @@ import { mount } from '@cypress/react';
 import React from 'react';
 import { logoutQuery } from '../../common/build/graphql/queries';
 import { User } from '../../common/build/types';
-import AppContainer from './AppContainer';
+import Main from './Main';
 import client from './common/utils/client';
 import { MockIntegrationSetup } from './__test__/mocks/setup.mock';
 
-describe('AppContainer', () => {
+describe('Main', () => {
   it('displays the "Login" and "Sign Up" nav options if a user is not signed in', () => {
     renderComponent();
 
@@ -58,7 +58,7 @@ describe('AppContainer', () => {
 function renderComponent(user?: User) {
   mount(
     <MockIntegrationSetup user={user}>
-      <AppContainer />
+      <Main />
     </MockIntegrationSetup>
   );
 }

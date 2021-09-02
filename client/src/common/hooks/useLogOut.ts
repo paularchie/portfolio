@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 
 export const useSignOut = () => {
   const { request } = useRequest();
-  return useMutation(async () => {
+  return useMutation(async (): Promise<string> => {
     const res = await request(logoutQuery);
     return res.logout;
   });
