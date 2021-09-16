@@ -7,7 +7,7 @@ import {
 } from '../../../__test__/mocks/constants.mock';
 import { createIntegrationTestSetup } from '../../../__test__/mocks/setup.mock';
 import client from '../../../common/utils/client';
-import { signUpMutation } from '../../../../../common/build/graphql/mutations';
+import { signUpMutation } from '@portfolio/common/build/graphql/mutations';
 
 describe('SignInPage', () => {
   beforeEach(() => createIntegrationTestSetup(SignUp));

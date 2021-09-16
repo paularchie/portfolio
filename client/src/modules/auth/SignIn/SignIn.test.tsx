@@ -4,7 +4,7 @@ import pageObjects from '../../../__test__/page-objects/global-page-objects';
 import { authCredentials, AUTH_ERROR_MESSAGE } from '../../../__test__/mocks/constants.mock';
 import { createIntegrationTestSetup } from '../../../__test__/mocks/setup.mock';
 import client from '../../../common/utils/client';
-import { loginQuery } from '../../../../../common/build/graphql/queries';
+import { loginQuery } from '@portfolio/common/build/graphql/queries';
 
 describe('SignInPage', () => {
   beforeEach(() => createIntegrationTestSetup(SignIn));

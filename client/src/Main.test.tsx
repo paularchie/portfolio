@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 import { mount } from '@cypress/react';
 import React from 'react';
-import { logoutQuery } from '../../common/build/graphql/queries';
-import { User } from '../../common/build/types';
+import { logoutQuery } from '@portfolio/common/build/graphql/queries';
+import { User } from '@portfolio/common/build/types';
 import Main from './Main';
 import client from './common/utils/client';
 import { MockIntegrationSetup } from './__test__/mocks/setup.mock';

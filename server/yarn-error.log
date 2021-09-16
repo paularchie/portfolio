@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js add @portfolio/common
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js
 
 PATH: 
-  C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\ia32_win\compiler;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\HP\Common\HPDestPlgIn\;C:\Program Files (x86)\HP\IdrsOCR_15.3.1129.0\;C:\Program Files\Kubernetes\Minikube;C:\kube;C:\Program Files\PuTTY\;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Pawel\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\doctl\;C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.2.0\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Apache24\bin;C:\Users\Pawel\AppData\Roaming\npm;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Pawel\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\HP\Common\HPDestPlgIn\;C:\kube;C:\Program Files\PuTTY\puttygen;C:\Users\Pawel\AppData\Roaming\nvm;C:\Program Files\nodejs
+  C:\Program Files (x86)\PowerShell\7;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.4\libnvvp;;;;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\ia32_win\compiler;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\HP\Common\HPDestPlgIn\;C:\Program Files (x86)\HP\IdrsOCR_15.3.1129.0\;C:\Program Files\Kubernetes\Minikube;C:\kube;C:\Program Files\PuTTY\;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Pawel\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\doctl\;C:\Program Files\NVIDIA Corporation\Nsight Compute 2021.2.0\;C:\Program Files (x86)\PowerShell\7\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Apache24\bin;C:\Users\Pawel\AppData\Roaming\npm;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Pawel\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\HP\Common\HPDestPlgIn\;C:\kube;C:\Program Files\PuTTY\puttygen;C:\Users\Pawel\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\heroku\bin
 
 Yarn version: 
   1.22.10
@@ -42,7 +42,8 @@ npm manifest:
       "prisma:studio": "npx prisma studio",
       "prisma:generate": "prisma generate",
       "db:migrate:prod": "npx prisma migrate deploy --preview-feature",
-      "db:push": "npx prisma db push"
+      "db:push": "npx prisma db push",
+      "gen-types": "ts-node src/schema-pre.ts"
     },
     "jest": {
       "preset": "ts-jest",
@@ -102,10 +103,9 @@ npm manifest:
       "nexus": "^1.0.0",
       "nexus-plugin-prisma": "^0.35.0",
       "nexus-prisma": "^0.28.0",
-      "password-validator": "^5.1.1",
       "path": "^0.12.7",
       "prettier": "^2.2.1",
-      "validator": "^13.6.0"
+      "@portfolio/common": "1.0.0"
     }
   }
 
